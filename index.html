@@ -3,88 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Primary SEO -->
   <title>Clone Waters — Psychedelic Craft Beer from Vietnam | DTC Delivery</title>
   <meta name="description" content="Clone Waters brews small-batch psychedelic craft beer in Vietnam. Double IPAs, sours, stouts — delivered to your door.">
-  <meta name="keywords" content="craft beer vietnam, DTC beer, clone waters, teddy hopper, DIPA, hazy IPA, saigon craft beer, bia thủ công">
+  <meta name="keywords" content="craft beer vietnam, DTC beer, clone waters, teddy hopper, DIPA, hazy IPA, saigon craft beer">
   <link rel="canonical" href="https://www.clonewaters.com/">
-
-  <!-- Hreflang -->
   <link rel="alternate" hreflang="en" href="https://www.clonewaters.com/?lang=en">
   <link rel="alternate" hreflang="vi" href="https://www.clonewaters.com/?lang=vi">
   <link rel="alternate" hreflang="x-default" href="https://www.clonewaters.com/">
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.clonewaters.com/">
   <meta property="og:title" content="Clone Waters — Psychedelic Craft Beer from Vietnam">
   <meta property="og:description" content="Small-batch psychedelic craft beer. Teddy Hopper DIPA and more — delivered to your door.">
   <meta property="og:image" content="https://www.clonewaters.com/img/og-image.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="vi_VN">
   <meta property="og:site_name" content="Clone Waters">
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Clone Waters — Psychedelic Craft Beer">
+  <meta name="twitter:title" content="Clone Waters — Craft Beer">
   <meta name="twitter:description" content="Psychedelic craft beer from Vietnam. Delivered DTC.">
   <meta name="twitter:image" content="https://www.clonewaters.com/img/og-image.jpg">
-
-  <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Brand",
     "name": "Clone Waters",
-    "url": "https://www.clonewaters.com",
-    "logo": "https://www.clonewaters.com/img/logo.svg",
+    "url": "https hops. Bold flavors://www.clonewaters.com",
     "description": "Psychedelic craft beer brewed in small batches in Vietnam",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Ho Chi Minh City",
-      "addressCountry": "VN"
-    },
-    "sameAs": [
-      "https://www.facebook.com/clonewaters",
-      "https://www.instagram.com/clonewaters",
-      "https://www.tiktok.com/@clonewaters"
-    ],
+    "address": { "@type": "PostalAddress", "addressLocality": "Ho Chi Minh City", "addressCountry": "VN" },
+    "sameAs": ["https://www.facebook.com/clonewaters", "https://www.instagram.com/clonewaters", "https://www.tiktok.com/@clonewaters"],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "Clone Waters Beer",
-      "itemListElement": [
-        {
-          "@type": "Product",
-          "name": "Teddy Hopper DIPA",
-          "description": "Double IPA with Amarillo, Centennial, Chinook, Columbus & Simcoe hops. 7.7% ABV.",
-          "brand": { "@type": "Brand", "name": "Clone Waters" },
-          "offers": {
-            "@type": "Offer",
-            "price": "219000",
-            "priceCurrency": "VND",
-            "availability": "https://schema.org/InStock",
-            "url": "https://www.clonewaters.com/#releases"
-          }
-        }
-      ]
+      "itemListElement": [{
+        "@type": "Product",
+        "name": "Teddy Hopper DIPA",
+        "brand": { "@type": "Brand", "name": "Clone Waters" },
+        "offers": { "@type": "Offer", "price": "219000", "priceCurrency": "VND", "availability": "https://schema.org/InStock" }
+      }]
     }
   }
   </script>
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Favicon -->
+ https://fonts.googleapis="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
-  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 </head>
 <body>
 
@@ -115,6 +77,9 @@
         <button class="lang-btn active" onclick="setLang('en')">EN</button>
         <button class="lang-btn" onclick="setLang('vn')">VN</button>
       </div>
+      <button class="nav-cart" onclick="openCheckout()">
+       ">earn, unlock 🛒 <span id="cartCount" style="display:none;background:var(--neon);color:var(--bg);border-radius:50%;width:18px;height:18px;font-size:.6rem;font-weight:700;display:none;align-items:center;justify-content:center">0</span>
+      </button>
       <a href="#members" class="nav-join" data-en="Join" data-vn="Tham Gia">Join</a>
     </div>
   </nav>
@@ -131,18 +96,7 @@
           <span class="brand-c">CLONE</span>
           <span class="brand-w">WATERS</span>
         </div>
-        <p class="hero-tag" data-en="Psychedelic hops. Bold flavors. Brewed in small batches, delivered to your door." data-vn="Hops psychedelic. Hương vị đậm đà. Nấu số lượng nhỏ, giao tận nhà.">Psychedelic hops. Bold flavors. Brewed in small batches, delivered to your door.</p>
-        <div class="hero-actions">
-          <a href="#releases" class="btn-primary">
-            <span data-en="Shop Releases" data-vn="Mua Ngay">Shop Releases</span>
-            <span class="arrow">→</span>
-          </a>
-          <a href="#members" class="btn-secondary" data-en="Join the Club" data-vn="Tham Gia Câu Lạc Bộ">Join the Club</a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <div class="stat-num">1</div>
-            <div class="stat-lbl" data-en="Release" data-vn="Đợt Phát Hành">Release</div>
+        <p class="hero-tag" data-en="Psychedelic. Brewed in" data-en="Release" data-vn="Đợt Phát Hành">Release</div>
           </div>
           <div class="stat-item">
             <div class="stat-num">7.7%</div>
@@ -186,14 +140,12 @@
         <span class="sec-accent" data-en="past, present &amp; future" data-vn="quá khứ, hiện tại &amp; tương lai">past, present &amp; future</span>
       </h2>
     </header>
-
     <div class="filters reveal">
       <button class="filter-btn active" data-filter="all" data-en="All" data-vn="Tất Cả">All</button>
       <button class="filter-btn" data-filter="upcoming" data-en="Upcoming" data-vn="Sắp Ra">Upcoming</button>
       <button class="filter-btn" data-filter="current" data-en="Available" data-vn="Còn Hàng">Available</button>
       <button class="filter-btn" data-filter="past" data-en="Past" data-vn="Đã Hết">Past</button>
     </div>
-
     <div class="rel-grid" id="relGrid"></div>
   </section>
 
@@ -203,13 +155,7 @@
       <div class="sec-label" data-en="The Inner Circle" data-vn="Câu Lạc Bộ">The Inner Circle</div>
       <h2 class="sec-title">
         <span data-en="MEMBERS" data-vn="THÀNH VIÊN">MEMBERS</span><br>
-        <span class="sec-accent" data-en="earn, unlock, enjoy" data-vn="tích điểm, mở khóa, tận hưởng">earn, unlock, enjoy</span>
-      </h2>
-    </header>
-
-    <div class="mem-wrap">
-      <div class="mem-info reveal">
-        <p data-en="Join the Clone Waters crew. Get early access to every drop, earn points on every can, and climb the ranks. Members-only releases sell out in minutes." data-vn="Tham gia đội ngũ Clone Waters. Nhận quyền truy cập sớm, tích điểm mỗi lon, thăng hạng. Đợt phát hành thành viên hết hàng trong phút chốc.">Join the Clone Waters crew. Get early access to every drop, earn points on every can, and climb the ranks. Members-only releases sell out in minutes.</p>
+        <span class="sec-accent" data-en="earn, unlock, enjoy" data-vn="tích điểm, mở khóa, tận hưởng, enjoy</span minutes.</p>
         <div class="tiers">
           <div class="tier-card">
             <div class="tier-icon">🍺</div>
@@ -314,10 +260,10 @@
         <div class="footer-logo">CLONE WATERS</div>
         <p data-en="Psychedelic craft beer from Vietnam. Small batches, bold flavors, wild labels." data-vn="Bia thủ công psychedelic từ Việt Nam.">Psychedelic craft beer from Vietnam. Small batches, bold flavors, wild labels.</p>
         <div class="footer-social">
-          <a href="#" aria-label="Facebook">f</a>
-          <a href="#" aria-label="Instagram">ig</a>
-          <a href="#" aria-label="TikTok">tk</a>
-          <a href="#" aria-label="Zalo">zl</a>
+          <a href="https://www.facebook.com/clonewaters" target="_blank" rel="noopener" aria-label="Facebook">fb</a>
+          <a href="https://www.instagram.com/clonewaters" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+          <a href="https://www.tiktok.com/@clonewaters" target="_blank" rel="noopener" aria-label="TikTok">tk</a>
+          <a href="https://zalo.me/yourzaloid" target="_blank" rel="noopener" aria-label="Zalo">zl</a>
         </div>
       </div>
       <div class="footer-col">
@@ -346,6 +292,377 @@
     </div>
   </footer>
 
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal modal-checkout">
+      <div class="modal-header">
+        <h2 data-en="Your Cart" data-vn="Giỏ Hàng">Your Cart</h2>
+        <button class="modal-close" onclick="closeCheckout()">✕</button>
+      </div>
+
+      <!-- Step indicators -->
+      <div class="checkout-steps-nav">
+        <button class="checkout-nav-btn active" data-step="1" onclick="goToCheckoutStep(1)">1. Cart</button>
+        <button class="checkout-nav-btn" data-step="2" onclick="goToCheckoutStep(2)">2. Shipping</button>
+        <button class="checkout-nav-btn" data-step="3" onclick="goToCheckoutStep(3)">3. Confirm</button>
+      </div>
+
+      <!-- Step 1: Cart -->
+      <div class="checkout-step active" id="step1">
+        <div id="cartEmpty" style="padding:3rem;text-align:center;color:var(--txt3)">
+          <div style="font-size:3rem;margin-bottom:1rem">🛒</div>
+          <p data-en="Your cart is empty" data-vn="Giỏ hàng trống">Your cart is empty</p>
+          <a href="#releases" class="btn-primary" style="display:inline-flex;margin-top:1rem" onclick="closeCheckout()">
+            <span data-en="Browse Beers" data-vn="Xem Sản Phẩm">Browse Beers</span>
+          </a>
+        </div>
+        <div id="cartContent" style="display:none">
+          <div id="cartItems"></div>
+          <div class="cart-totals">
+            <div class="cart-total-row"><span data-en="Subtotal" data-vn="Tạm tính">Subtotal</span><span id="cartSubtotal">0</span></div>
+            <div class="cart-total-row"><span data-en="Shipping" data-vn="Vận chuyển">Shipping</span><span id="cartShipping">FREE</span></div>
+            <div class="cart-total-row cart-total-final"><span data-en="Total" data-vn="Tổng">Total</span><span id="cartTotal">0</span></div>
+          </div>
+          <button class="btn-primary" style="width:100%;justify-content:center;margin-top:1rem" onclick="goToCheckoutStep(2)">
+            <span data-en="Continue to Shipping" data-vn="Tiếp tục">Continue to Shipping</span> →
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Shipping -->
+      <div class="checkout-step" id="step2">
+        <div class="checkout-form">
+          <div class="form-row-checkout">
+            <div class="form-col-checkout">
+              <label data-en="Full Name" data-vn="Họ Tên">Full Name</label>
+              <input class="input" id="shipName" placeholder="Nguyen Van A" required>
+            </div>
+            <div class="form-col-checkout">
+              <label data-en="Phone" data-vn="SĐT">Phone</label>
+              <input class="input" id="shipPhone" placeholder="+84 900 000 000" required>
+            </div>
+          </div>
+          <div class="form-row-checkout">
+            <div class="form-col-checkout">
+              <label data-en="Email" data-vn="Email">Email</label>
+              <input class="input" id="shipEmail" placeholder="you@example.com">
+            </div>
+          </div>
+          <div class="form-row-checkout">
+            <div class="form-col-checkout">
+              <label data-en="Address" data-vn="Địa Chỉ">Address</label>
+              <input class="input" id="shipAddress" placeholder="123 Nguyen Hue" required>
+            </div>
+          </div>
+          <div class="form-row-checkout">
+            <div class="form-col-checkout">
+              <label data-en="District" data-vn="Quận">District</label>
+              <input class="input" id="shipDistrict" placeholder="Quan 1">
+            </div>
+            <div class="form-col-checkout">
+              <label data-en="City" data-vn="Thành Phố">City</label>
+              <select class="input-select" id="shipCity" style="width:100%">
+                <option value="Ho Chi Minh">Ho Chi Minh</option>
+                <option value="Hanoi">Hanoi</option>
+                <option value="Da Nang">Da Nang</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row-checkout">
+            <div class="form-col-checkout">
+              <label data-en="Order Note (optional)" data-vn="Ghi Chú">Order Note (optional)</label>
+              <textarea class="input-textarea" id="orderNote" rows="2" placeholder="Leave at front door, etc."></textarea>
+            </div>
+          </div>
+
+          <!-- Zalo / FB order option -->
+          <div class="order-alt-options">
+            <p class="alt-label" data-en="Prefer to order via social?" data-vn="Muốn đặt qua mạng xã hội?">Prefer to order via social?</p>
+            <div class="alt-buttons">
+              <a href="https://zalo.me/yourzaloid" target="_blank" rel="noopener" class="btn-alt btn-zalo">
+                <span>💬</span> Zalo
+              </a>
+              <a href="https://m.me/clonewaters" target="_blank" rel="noopener" class="btn-alt btn-messenger">
+                <span>📘</span> Messenger
+              </a>
+              <a href="https://www.instagram.com/clonewaters" target="_blank" rel="noopener" class="btn-alt btn-ig">
+                <span>📸</span> Instagram
+              </a>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:.8rem;margin-top:1rem">
+            <button class="btn-secondary" style="flex:1;justify-content:center" onclick="goToCheckoutStep(1)">← Back</button>
+            <button class="btn-primary" style="flex:2;justify-content:center" onclick="goToCheckoutStep(3)">
+              <span data-en="Review Order" data-vn="Xem Đơn Hàng">Review Order</span> →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Confirm -->
+      <div class="checkout-step" id="step3">
+        <div id="orderSummary"></div>
+        <div style="margin-top:1rem">
+          <label data-en="Payment Method" data-vn="Phương Thức Thanh Toán">Payment Method</label>
+          <div class="payment-options">
+            <label class="payment-option active">
+              <input type="radio" name="payment" value="cod" checked>
+              <span class="payment-label">💵 <span data-en="Cash on Delivery" data-vn="Thu Hộ">Cash on Delivery</span></span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="bank">
+              <span class="payment-label">🏦 <span data-en="Bank Transfer" data-vn="Chuyển Khoản">Bank Transfer</span></span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="momo">
+              <span class="payment-label">📱 <span data-en="MoMo / ZaloPay" data-vn="MoMo / ZaloPay">MoMo / ZaloPay</span></span>
+            </label>
+          </div>
+        </div>
+        <div style="display:flex;gap:.8rem;margin-top:1.2rem">
+          <button class="btn-secondary" style="flex:1;justify-content:center" onclick="goToCheckoutStep(2)">← Back</button>
+          <button class="btn-primary" style="flex:2;justify-content:center;background:var(--neon)" onclick="placeOrder()">
+            <span data-en="Place Order" data-vn="Đặt Hàng">Place Order</span> 🎉
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4: Success -->
+      <div class="checkout-step" id="step4">
+        <div class="order-success">
+          <div class="success-icon">🎉</div>
+          <h3 data-en="Order Placed!" data-vn="Đặt Hàng Thành Công!">Order Placed!</h3>
+          <p data-en="Your order number is" data-vn="Mã đơn hàng của bạn là">Your order number is</p>
+          <div class="order-id" id="orderIdDisplay">#CW-0000</div>
+          <p class="success-note" data-en="We'll send you a confirmation via email and Zalo. Your beer is on its way!" data-vn="Chúng tôi sẽ gửi xác nhận qua email và Zalo. Bia đang trên đường đến!">We'll send you a confirmation via email and Zalo. Your beer is on its way!</p>
+          <button class="btn-primary" style="margin-top:1.5rem" onclick="closeCheckout()">
+            <span data-en="Continue Shopping" data-vn="Tiếp tục Mua Sắm">Continue Shopping</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHATSAPP / ZALO FLOATING BUTTON -->
+  <a href="https://zalo.me/yourzaloid" target="_blank" rel="noopener" class="float-contact" aria-label="Chat on Zalo">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.87 7.97-3.43 3.79-1.58 4.58-1.86 5.09-1.87.11 0 .37.03.53.17.14.12.18.28.2.45-.01.06.01.24 0 .38z"/></svg>
+  </a>
+
   <script src="js/app.js"></script>
+
+  <!-- Inline styles for checkout (add to css/style.css later) -->
+  <style>
+    /* Nav cart button */
+    .nav-cart {
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--border);
+      color: var(--txt);
+      font-size: 1rem;
+      border-radius: 100px;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .nav-cart:hover { border-color: var(--neon); }
+
+    /* Checkout modal */
+    .modal-checkout { max-width: 560px; }
+
+    .checkout-steps-nav {
+      display: flex;
+      padding: 0 1.5rem;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .checkout-nav-btn {
+      flex: 1;
+      padding: 0.8rem;
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--txt3);
+      border-bottom: 2px solid transparent;
+      transition: 0.3s;
+    }
+
+    .checkout-nav-btn.active {
+      color: var(--neon);
+      border-bottom-color: var(--neon);
+    }
+
+    .checkout-step { display: none; padding: 1.5rem; }
+    .checkout-step.active { display: block; }
+
+    .form-row-checkout { display: flex; gap: 0.8rem; margin-bottom: 0.6rem; }
+    .form-col-checkout { flex: 1; }
+    .form-col-checkout label { margin-top: 0.5rem; }
+    .form-col-checkout .input,
+    .form-col-checkout .input-select,
+    .form-col-checkout .input-textarea { width: 100%; }
+
+    /* Cart items */
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-size: 0.85rem; font-weight: 600; }
+    .cart-item-price { font-size: 0.72rem; color: var(--txt3); margin-top: 0.15rem; }
+
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+
+    .qty-btn:hover { border-color: var(--neon); color: var(--neon); }
+
+    .cart-item-remove {
+      font-size: 0.9rem;
+      color: var(--txt3);
+      padding: 0.3rem;
+      transition: 0.2s;
+    }
+
+    .cart-item-remove:hover { color: var(--pink); }
+
+    /* Cart totals */
+    .cart-totals {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.3rem 0;
+      font-size: 0.82rem;
+      color: var(--txt2);
+    }
+
+    .cart-total-final {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--txt);
+      padding-top: 0.5rem;
+      margin-top: 0.3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .cart-total-final span:last-child { color: var(--neon); }
+
+    /* Payment options */
+    .payment-options { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .payment-option:hover, .payment-option:has(input:checked) {
+      border-color: var(--neon);
+      background: rgba(57, 255, 20, 0.05);
+    }
+
+    .payment-option input { display: none; }
+    .payment-label { font-size: 0.82rem; }
+
+    /* Order success */
+    .order-success { text-align: center; padding: 2rem 0; }
+    .success-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .order-success h3 { font-family: var(--ff-display); font-size: 2rem; margin-bottom: 0.5rem; }
+    .order-id {
+      font-family: var(--ff-display);
+      font-size: 2.5rem;
+      color: var(--neon);
+      text-shadow: 0 0 20px rgba(57,255,20,0.4);
+      margin: 0.5rem 0;
+    }
+    .success-note { font-size: 0.85rem; color: var(--txt2); line-height: 1.6; }
+
+    /* Alt order options */
+    .order-alt-options {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .alt-label { font-size: 0.72rem; color: var(--txt3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.6rem; }
+
+    .alt-buttons { display: flex; gap: 0.5rem; }
+
+    .btn-alt {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.75rem;
+      color: var(--txt2);
+      transition: 0.2s;
+    }
+
+    .btn-zalo:hover { border-color: #0068ff; color: #0068ff; background: rgba(0,104,255,0.05); }
+    .btn-messenger:hover { border-color: #00b2ff; color: #00b2ff; background: rgba(0,178,255,0.05); }
+    .btn-ig:hover { border-color: #e4405f; color: #e4405f; background: rgba(228,64,95,0.05); }
+
+    /* Floating contact button */
+    .float-contact {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      width: 52px;
+      height: 52px;
+      background: #0068ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,104,255,0.4);
+      z-index: 8000;
+      transition: 0.3s;
+    }
+
+    .float-contact:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(0,104,255,0.5);
+    }
+
+    @media (max-width: 480px) {
+      .form-row-checkout { flex-direction: column; gap: 0; }
+      .alt-buttons { flex-direction: column; }
+    }
+  </style>
 </body>
 </html>
