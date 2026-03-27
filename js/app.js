@@ -79,207 +79,150 @@ function doLogout() {
   switchTab("login");
 }
 
-/* =============================================
-   THREE.JS 3D CAN
-   ============================================= */
+/* ---- THREE.JS CAN ---- */
 function initCan() {
   var container = document.getElementById("canCanvas");
- ;
+  if (!container || typeof THREE === "undefined") return;
 
-  var width = container.clientWidth;
-  var height = container.clientHeight;
+  var w = container.clientWidth;
+  var h = container.clientHeight;
 
-  // Scene
   var scene = new THREE.Scene();
-
-  // Camera
-  var camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 100);
+  var camera = new THREE.PerspectiveCamera(35, w / h, 0.1, 100);
   camera.position.set(0, 0.5, 5);
   camera.lookAt(0, 0, 0);
 
-  // Renderer
   var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(width, height);
+  renderer.setSize(w, h);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.2;
   renderer.outputEncoding = THREE.sRGBEncoding;
   container.appendChild(renderer.domElement);
 
-  // Lights
   scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+  var key = new THREE.DirectionalLight(0xffffff, 1.0);
+  key.position.set(3, 4, 5);
+  scene.add(key);
+  var fill = new THREE.DirectionalLight(0x8888ff, 0.4);
+  fill.position.set(-3, 2, 3);
+  scene.add(fill);
+  var back = new THREE.DirectionalLight(0x39ff14, 0.3);
+  back.position.set(0, 2, -4);
+  scene.add(back);
+  var rim = new THREE.PointLight(0xffffff, 0.6, 10);
+  rim.position.set(-3, 0, 2);
+  scene.add(rim);
 
-  var keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
-  keyLight.position.set(3, 4, 5);
-  scene.add(keyLight);
-
-  var fillLight = new THREE.DirectionalLight(0x8888ff,  if (!container || typeof THREE === "undefined") return0.4);
-  fillLight.position.set(-3, 2, 3);
-  scene.add(fillLight);
-
-  var backLight = new THREE.DirectionalLight(0x39ff14, 0.3);
-  backLight.position.set(0, 2, -4);
-  scene.add(backLight);
-
-  var rimLight = new THREE.PointLight(0xffffff, 0.6, 10);
-  rimLight.position.set(-3, 0, 2);
-  scene.add(rimLight);
-
-  // Environment map for reflections
   try {
     var pmrem = new THREE.PMREMGenerator(renderer);
     var envScene = new THREE.Scene();
     envScene.background = new THREE.Color(0x111111);
     envScene.add(new THREE.AmbientLight(0x404040, 1));
-    var el1 = new THREE.PointLight(0xffffff, 100, 0);
-    el1.position.set(5, 5, 5);
-    envScene.add(el1);
-    var el2 = new THREE.PointLight(0x8888ff, 50, 0);
-    el2.position.set(-5, 3, -5);
-    envScene.add(el2);
-    var el3 = new THREE.PointLight(0x39ff14, 30, 0);
-    el3.position.set(0, -3, 5);
-    envScene.add(el3);
+    var ep1 = new THREE.PointLight(0xffffff, 100, 0);
+    ep1.position.set(5, 5, 5);
+    envScene.add(ep1);
+    var ep2 = new THREE.PointLight(0x8888ff, 50, 0);
+    ep2.position.set(-5, 3, -5);
+    envScene.add(ep2);
+    var ep3 = new THREE.PointLight(0x39ff14, 30, 0);
+    ep3.position.set(0, -3, 5);
+    envScene.add(ep3);
     scene.environment = pmrem.fromScene(envScene, 0.04).texture;
     pmrem.dispose();
-  } catch (e) {
-    console.log("Env map skipped:", e);
-  }
+  } catch (e) {}
 
-  // Label texture
-  var textureLoader = new THREE.TextureLoader();
-  var labelTexture = textureLoader.load(LABEL);
-  labelTexture.encoding = THREE.sRGBEncoding;
+  var texLoader = new THREE.TextureLoader();
+  var labelTex = texLoader.load(LABEL);
+  labelTex.encoding = THREE.sRGBEncoding;
 
-  // Can group
-  var canGroup = new THREE.Group();
+  var can = new THREE.Group();
 
-  // Body (cylinder with label)
   var bodyGeo = new THREE.CylinderGeometry(0.85, 0.85, 2.8, 64, 1, true);
-  var bodyMat = new THREE.MeshStandardMaterial({
-    map: labelTexture,
-    metalness: 0.3,
-    roughness: 0.35,
-    side: THREE.DoubleSide
-  });
-  var body = new THREE.Mesh(bodyGeo, bodyMat);
-  canGroup.add(body);
+  var bodyMat = new THREE.MeshStandardMaterial({ map: labelTex, metalness: 0.3, roughness: 0.35, side: THREE.DoubleSide });
+  can.add(new THREE.Mesh(bodyGeo, bodyMat));
 
-  // Top cap (aluminum)
+  var metalMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.95, roughness: 0.15 });
   var topGeo = new THREE.CylinderGeometry(0.85, 0.85, 0.04, 64);
-  var metalMat = new THREE.MeshStandardMaterial({
-    color: 0xcccccc,
-    metalness: 0.95,
-    roughness: 0.15
-  });
   var top = new THREE.Mesh(topGeo, metalMat);
   top.position.y = 1.4;
-  canGroup.add(top);
+  can.add(top);
 
-  // Top rim ring
   var rimGeo = new THREE.TorusGeometry(0.85, 0.025, 8, 64);
-  var rim = new THREE.Mesh(rimGeo, metalMat);
-  rim.rotation.x = Math.PI / 2;
-  rim.position.y = 1.42;
-  canGroup.add(rim);
+  var rimMesh = new THREE.Mesh(rimGeo, metalMat);
+  rimMesh.rotation.x = Math.PI / 2;
+  rimMesh.position.y = 1.42;
+  can.add(rimMesh);
 
-  // Pull tab
+  var tabMat = new THREE.MeshStandardMaterial({ color: 0xbbbbbb, metalness: 0.9, roughness: 0.2 });
   var tabGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.015, 16);
-  var tabMat = new THREE.MeshStandardMaterial({
-    color: 0xbbbbbb,
-    metalness: 0.9,
-    roughness: 0.2
-  });
   var tab = new THREE.Mesh(tabGeo, tabMat);
   tab.position.set(0.15, 1.43, 0);
-  canGroup.add(tab);
-
+  can.add(tab);
   var tabRingGeo = new THREE.TorusGeometry(0.08, 0.012, 8, 24);
   var tabRing = new THREE.Mesh(tabRingGeo, tabMat);
   tabRing.rotation.x = Math.PI / 2;
   tabRing.position.set(0.15, 1.44, 0);
-  canGroup.add(tabRing);
+  can.add(tabRing);
 
-  // Bottom cap (aluminum)
-  var bottomGeo = new THREE.CylinderGeometry(0.85, 0.82, 0.04, 64);
-  var bottomMat = new THREE.MeshStandardMaterial({
-    color: 0xaaaaaa,
-    metalness: 0.95,
-    roughness: 0.2
-  });
-  var bottom = new THREE.Mesh(bottomGeo, bottomMat);
-  bottom.position.y = -1.4;
-  canGroup.add(bottom);
+  var botMat = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, metalness: 0.95, roughness: 0.2 });
+  var botGeo = new THREE.CylinderGeometry(0.85, 0.82, 0.04, 64);
+  var bot = new THREE.Mesh(botGeo, botMat);
+  bot.position.y = -1.4;
+  can.add(bot);
+  var indGeo = new THREE.SphereGeometry(0.6, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+  var ind = new THREE.Mesh(indGeo, botMat);
+  ind.rotation.x = Math.PI;
+  ind.position.y = -1.38;
+  ind.scale.y = 0.15;
+  can.add(ind);
 
-  // Bottom indent (concave)
-  var indentGeo = new THREE.SphereGeometry(0.6, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
-  var indent = new THREE.Mesh(indentGeo, bottomMat);
-  indent.rotation.x = Math.PI;
-  indent.position.y = -1.38;
-  indent.scale.y = 0.15;
-  canGroup.add(indent);
+  can.position.y = 0.1;
+  scene.add(can);
 
-  canGroup.position.y = 0.1;
-  scene.add(canGroup);
-
-  // Mouse interaction
   var mouseDown = false;
-  var mouseX = 0;
-  var rotationSpeed = 0.008;
-  var targetSpeed = 0.008;
+  var speed = 0.008;
+  var target = 0.008;
 
   renderer.domElement.addEventListener("mousedown", function() { mouseDown = true; });
-  renderer.domElement.addEventListener("mouseup", function() { mouseDown = false; targetSpeed = 0.008; });
-  renderer.domElement.addEventListener("mouseleave", function() { mouseDown = false; targetSpeed = 0.008; });
+  renderer.domElement.addEventListener("mouseup", function() { mouseDown = false; target = 0.008; });
+  renderer.domElement.addEventListener("mouseleave", function() { mouseDown = false; target = 0.008; });
   renderer.domElement.addEventListener("mousemove", function(e) {
     if (mouseDown) {
       var rect = renderer.domElement.getBoundingClientRect();
       var x = (e.clientX - rect.left) / rect.width - 0.5;
-      targetSpeed = x * 0.06;
+      target = x * 0.06;
     }
   });
-
-  // Touch support
   renderer.domElement.addEventListener("touchstart", function() { mouseDown = true; }, {passive: true});
-  renderer.domElement.addEventListener("touchend", function() { mouseDown = false; targetSpeed = 0.008; });
+  renderer.domElement.addEventListener("touchend", function() { mouseDown = false; target = 0.008; });
   renderer.domElement.addEventListener("touchmove", function(e) {
     if (mouseDown && e.touches.length > 0) {
       var rect = renderer.domElement.getBoundingClientRect();
       var x = (e.touches[0].clientX - rect.left) / rect.width - 0.5;
-      targetSpeed = x * 0.06;
+      target = x * 0.06;
     }
   }, {passive: true});
 
-  // Gentle float
-  var floatTime = 0;
-
-  // Animate
+  var ft = 0;
   function animate() {
     requestAnimationFrame(animate);
-
-    // Auto-rotate or drag-rotate
-    rotationSpeed += (targetSpeed - rotationSpeed) * 0.05;
-    canGroup.rotation.y += rotationSpeed;
-
-    // Gentle float
-    floatTime += 0.015;
-    canGroup.position.y = 0.1 + Math.sin(floatTime) * 0.08;
-
-    // Slight tilt
-    canGroup.rotation.x = Math.sin(floatTime * 0.7) * 0.03;
-    canGroup.rotation.z = Math.cos(floatTime * 0.5) * 0.02;
-
+    speed += (target - speed) * 0.05;
+    can.rotation.y += speed;
+    ft += 0.015;
+    can.position.y = 0.1 + Math.sin(ft) * 0.08;
+    can.rotation.x = Math.sin(ft * 0.7) * 0.03;
+    can.rotation.z = Math.cos(ft * 0.5) * 0.02;
     renderer.render(scene, camera);
   }
   animate();
 
-  // Resize
   window.addEventListener("resize", function() {
-    width = container.clientWidth;
-    height = container.clientHeight;
-    camera.aspect = width / height;
+    w = container.clientWidth;
+    h = container.clientHeight;
+    camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
+    renderer.setSize(w, h);
   });
 }
 
@@ -298,13 +241,13 @@ function renderReleases(filter) {
     if (p.status === "current") {
       bb = '<button class="btn-buy" data-add="' + p.id + '">Add to Cart - ' + p.price + 'K</button>';
     } else if (p.status === "past") {
-      bb = '<button class="btn-buy sold-out" disabled "";
+      bb = '<button class="btn-buy sold-out" disabled>Sold Out</button>';
+    }
+    var ih = "";
     if (p.img) {
       ih = '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" width="200" height="350">';
     } else {
-      var gr = {g:"#0a>Sold Out</button>';
-    }
-    var ih =3d2e,#0d2847,#0a0a2e",p:"#2a0a4e,#1a0a3e,#0d0a2e",o:"#2a1500,#1a0a0a,#0d0a0a",c:"#0a2a3e,#0a1a2e,#0a0a1e"};
+      var gr = {g:"#0a3d2e,#0d2847,#0a0a2e",p:"#2a0a4e,#1a0a3e,#0d0a2e",o:"#2a1500,#1a0a0a,#0d0a0a",c:"#0a2a3e,#0a1a2e,#0a0a1e"};
       ih = '<div class="placeholder-can" style="background:linear-gradient(135deg,' + (gr[p.accent] || gr.g) + ');color:var(--neon)">' + p.name + '</div>';
     }
     var card = document.createElement("article");
@@ -443,7 +386,8 @@ function renderSummary() {
   for (var i = 0; i < cart.length; i++) {
     var t = cart[i].price * cart[i].qty;
     sub += t;
-    ih += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>' + cart[i].name + ' x ' + cart[i].qty + '</span><span>' + t + 'K</span></div>';
+    ih += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>' +start" }); }
+ cart[i].name + ' x ' + cart[i].qty + '</span><span>' + t + 'K</span></div>';
   }
   var ship = sub >= 1000 ? 0 : 50;
   var tot = sub + ship;
@@ -495,23 +439,10 @@ var sLinks = document.querySelectorAll('a[href^="#"]');
 for (var si = 0; si < sLinks.length; si++) {
   sLinks[si].addEventListener("click", function(e) {
     var h = this.getAttribute("href");
-    if (h && h.length > 1) { e.preventDefault(); var tgt = document.querySelector(h); if (tgt) tgt.scrollIntoView({ behavior: "smooth", block: "start" }); }
-  });
+    if (h && h.length > 1) { e.preventDefault(); var tgt = document.querySelector(h); if (tgt) tgt.scrollIntoView({ behavior: "smooth", block: "  });
 }
 
-/* =============================================
-   EVENT BINDINGS
-   ============================================= */
-document.getElementById("ageYes").addEventListener("click", enterSite);
-document.getElementById("ageNo").addEventListener("click", leaveSite);
-
-var _lb = document.querySelectorAll(".lang-btn");
-for (var i = 0; i < _lb.length; i++) {
-  _lb[i].addEventListener("click", function() { setLang(this.getAttribute("data-lang")); });
-}
-
-var _at = document.querySelectorAll(".auth-tab");
-for (var i = 0; i < _at.length; i++) {
+/* (var i = 0; i < _at.length; i++) {
   _at[i].addEventListener("click", function() { switchTab(this.getAttribute("data-tab")); });
 }
 
