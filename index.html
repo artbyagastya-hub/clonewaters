@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="endiv></div>
-">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clone Waters — Psychedelic Craft Beer from Vietnam</title>
-  <meta name="description" content="Clone Waters brews small-batch psychedelic craft beer in Vietnam. DIPA, sours, stouts.">
+  <title>Clone Waters - Psychedelic Craft Beer</title>
+  <meta name="description" content="Clone Waters brews small-batch psychedelic craft beer in Vietnam.">
   <link rel="canonical" href="https://www.clonewaters.com/">
-  <meta property="og:title" content="Clone Waters — Psychedelic Craft Beer">
+  <meta property="og:title" content="Clone Waters - Psychedelic Craft Beer">
   <meta property="og:description" content="Small-batch psychedelic craft beer from Vietnam.">
   <meta property="og:image" content="https://www.clonewaters.com/img/og-image.jpg">
   <meta property="og:type" content="website">
@@ -45,10 +44,6 @@
       <a href="#">FAQ</a>
     </div>
     <div class="nav-right">
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="en">EN</button>
-        <button class="lang-btn" data-lang="vn">VN</button>
-      </div>
       <button class="nav-cart" id="cartBtn">Cart (<span id="cartCount">0</span>)</button>
       <a href="#members" class="nav-join">Join</a>
     </div>
@@ -58,23 +53,46 @@
   <section class="hero" id="hero">
     <div class="hero-inner">
       <div class="hero-content">
-       ank Finder —  <div class="hero-badge">
+        <div class="hero-badge">
           <span class="badge-dot"></span>
-          <span>DTC Craft Beer — Vietnam</span>
+          <span>DTC Craft Beer - Vietnam</span>
         </div>
         <div class="hero-logo-wrap">
           <img src="img/logo.svg" alt="Clone Waters" class="hero-logo-img">
         </div>
         <p class="hero-tag">Psychedelic hops. Bold flavors. Brewed in small batches, delivered to your door.</p>
         <div class="hero-actions">
-          <a href="#releases" class="btn-primary">Shop Releases <span class="arrow">→</span></a>
+          <a href="#releases" class="btn-primary">Shop Releases <span class="arrow">&rarr;</span></a>
           <a href="#members" class="btn-secondary">Join the Club</a>
         </div>
         <div class="hero-stats">
           <div class="stat-item"><div class="stat-num">1</div><div class="stat-lbl">Release</div></div>
           <div class="stat-item"><div class="stat-num">7.7%</div><div class="stat-lbl">ABV</div></div>
-          <div class="stat-item"><div class="stat-num">330ml</div><div class="stat-lbl">Per Can</        </div>
-button>
+          <div class="stat-item"><div class="stat-num">330ml</div><div class="stat-lbl">Per Can</div></div>
+        </div>
+      </div>
+      <div class="hero-can-area">
+        <span class="sparkle s1">&#10022;</span>
+        <span class="sparkle s2">&#10023;</span>
+        <span class="sparkle s3">&#10022;</span>
+        <span class="sparkle s4">&#10023;</span>
+        <span class="sparkle s5">&#10022;</span>
+        <span class="sparkle s6">&#10023;</span>
+        <div id="canCanvas"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELEASES -->
+  <section id="releases">
+    <header class="sec-header reveal">
+      <div class="sec-label">The Lineup</div>
+      <h2 class="sec-title"><span>RELEASES</span><br><span class="sec-accent">past, present &amp; future</span></h2>
+    </header>
+    <div class="filters reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+      <button class="filter-btn" data-filter="current">Available</button>
       <button class="filter-btn" data-filter="past">Past</button>
     </div>
     <div class="rel-grid" id="relGrid"></div>
@@ -88,11 +106,23 @@ button>
     </header>
     <div class="mem-wrap">
       <div class="mem-info reveal">
-        <p>Join the Clone Waters crew. Get early access to every drop, earn points on every can, and climb the ranks.</p>
+        <p>Join the Clone Waters crew. Get early access to every drop, earn points on every can, and climb the ranks. Members-only releases sell out in minutes.</p>
         <div class="tiers">
-          <div class="tier-card"><div class="tier-icon">🍺</div><div class="tier-info"><h4>HOPPER</h4><p>1x points, early access</p></div><div class="tier-pts">0 PTS</div></div>
-          <div class="tier-card"><div class="tier-icon">🍻</div><div class="tier-info"><h4>DANK FINDER</h4><p>2x points, free shipping</p></div><div class="tier-pts">500 PTS</div></div>
-          <div class="tier-card"><div class="tier-icon">👑</div><div class="tier-info"><h4>BREW MASTER</h4><p>3x points, collabs, merch</p></div><div class="tier-pts">2000 PTS</div></div>
+          <div class="tier-card">
+            <div class="tier-icon">&#127866;</div>
+            <div class="tier-info"><h4>HOPPER</h4><p>1x points, early access</p></div>
+            <div class="tier-pts">0 PTS</div>
+          </div>
+          <div class="tier-card">
+            <div class="tier-icon">&#127867;</div>
+            <div class="tier-info"><h4>DANK FINDER</h4><p>2x points, free shipping</p></div>
+            <div class="tier-pts">500 PTS</div>
+          </div>
+          <div class="tier-card">
+            <div class="tier-icon">&#128081;</div>
+            <div class="tier-info"><h4>BREW MASTER</h4><p>3x points, collabs, merch</p></div>
+            <div class="tier-pts">2000 PTS</div>
+          </div>
         </div>
       </div>
       <div class="auth-card reveal reveal-d2">
@@ -103,20 +133,23 @@ button>
           </div>
           <form class="auth-form active" id="loginForm">
             <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" required></div>
-            <div class="form-group"><label>Password</label><input type="password" placeholder="••••••••" required></div>
+            <div class="form-group"><label>Password</label><input type="password" placeholder="Password" required></div>
             <button type="submit" class="form-submit">Log In</button>
           </form>
           <form class="auth-form" id="registerForm">
             <div class="form-group"><label>Full Name</label><input type="text" placeholder="Nguyen Van A" required></div>
             <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" required></div>
             <div class="form-group"><label>Phone</label><input type="tel" placeholder="+84 900 000 000"></div>
-            <div class="form-group"><label>Password</label><input type="password" placeholder="••••••••" required></div>
+            <div class="form-group"><label>Password</label><input type="password" placeholder="Password" required></div>
             <button type="submit" class="form-submit">Create Account</button>
           </form>
         </div>
         <div class="dashboard" id="dashboardView">
           <div class="dash-header">
-            <div class="dash-user"><div class="user-avatar">CW</div><div class="user-info"><h4>CLONE FAN</h4><p>D780 pts</p></div></div>
+            <div class="dash-user">
+              <div class="user-avatar">CW</div>
+              <div class="user-info"><h4>CLONE FAN</h4><p>Dank Finder - 780 pts</p></div>
+            </div>
             <button class="logout-btn" id="logoutBtn">Log Out</button>
           </div>
           <div class="dash-stats">
@@ -126,8 +159,16 @@ button>
           </div>
           <div class="orders-list">
             <h4>Recent Orders</h4>
-            <div class="order-item"><div class="order-icon">🍺</div><div class="order-details"><h5>Teddy Hopper × 6</h5><p>Mar 20 — 1,254K</p></div><span class="order-st st-delivered">Delivered</span></div>
-            <div class="order-item"><div class="order-icon">🚚</div><div class="order-details"><h5>Teddy Hopper × 4</h5><p>Mar 25 — 876K</p></div><span class="order-st st-shipped">Shipping</span></div>
+            <div class="order-item">
+              <div class="order-icon">&#127866;</div>
+              <div class="order-details"><h5>Teddy Hopper x 6</h5><p>Mar 20 - 1,254K</p></div>
+              <span class="order-st st-delivered">Delivered</span>
+            </div>
+            <div class="order-item">
+              <div class="order-icon">&#128666;</div>
+              <div class="order-details"><h5>Teddy Hopper x 4</h5><p>Mar 25 - 876K</p></div>
+              <span class="order-st st-shipped">Shipping</span>
+            </div>
           </div>
         </div>
       </div>
@@ -139,7 +180,7 @@ button>
     <div class="modal modal-checkout">
       <div class="modal-header">
         <h2>Your Cart</h2>
-        <button class="modal-close" id="closeCheckout">✕</button>
+        <button class="modal-close" id="closeCheckout">&times;</button>
       </div>
       <div class="checkout-steps-nav">
         <button class="checkout-nav-btn active" data-step="1">1. Cart</button>
@@ -148,9 +189,9 @@ button>
       </div>
       <div class="checkout-step active" id="step1">
         <div id="cartEmpty" style="padding:3rem;text-align:center;color:var(--txt3)">
-          <div style="font-size:3rem;margin-bottom:1rem">🛒</div>
+          <div style="font-size:3rem;margin-bottom:1rem">&#128722;</div>
           <p>Your cart is empty</p>
-          <a href="#releases" class="btn-primary" style="display:inline-flex;margin-top:1rem" onclick="document.getElementById('checkoutModal').classList.remove('open')">Browse Beers</a>
+          <a href="#releases" class="btn-primary" style="display:inline-flex;margin-top:1rem" id="browseBeersBtn">Browse Beers</a>
         </div>
         <div id="cartContent" style="display:none">
           <div id="cartItems"></div>
@@ -159,37 +200,47 @@ button>
             <div class="cart-total-row"><span>Shipping</span><span id="cartShipping">FREE</span></div>
             <div class="cart-total-row cart-total-final"><span>Total</span><span id="cartTotal">0</span></div>
           </div>
-          <button class="btn-primary" style="width:100%;justify-content:center;margin-top:1rem" id="toStep2">Continue to Shipping →</button>
+          <button class="btn-primary" style="width:100%;justify-content:center;margin-top:1rem" id="toStep2">Continue to Shipping &rarr;</button>
         </div>
       </div>
       <div class="checkout-step" id="step2">
         <div class="checkout-form">
-          <div class="form-row-checkout"><div class="form-col-checkout"><label>Full Name</label><input class="input" id="shipName" placeholder="Nguyen Van A"></div><div class="form-col-checkout"><label>Phone</label><input class="input" id="shipPhone" placeholder="+84 900 000 000"></div></div>
-          <div class="form-row-checkout"><div class="form-col-checkout"><label>Email</label><input class="input" id="shipEmail" placeholder="you@example.com"></div></div>
-          <div class="form-row-checkout"><div class="form-col-checkout"><label>Address</label><input class="input" id="shipAddress" placeholder="123 Nguyen Hue"></div></div>
-          <div class="form-row-checkout"><div class="form-col-checkout"><label>District</label><input class="input" id="shipDistrict" placeholder="Quan 1"></div><div class="form-col-checkout"><label>City</label><select class="input" id="shipCity"><option>Ho Chi Minh</option><option>Hanoi</option><option>Da Nang</option><option>Other</option></select></div></div>
-          <div style="display:flex;gap:.8rem;margin-top:1rem">
-            <button class="btn-secondary" style="flex:1;justify-content:center" id="backToStep1">← Back</button>
-            <button class="btn-primary" style="flex:2;justify-content:center" id="toStep3">Review Order →</button>
+          <div class="form-row-checkout">
+            <div class="form-col-checkout"><label>Full Name</label><input class="input" id="shipName" placeholder="Nguyen Van A"></div>
+            <div class="form-col-checkout"><label>Phone</label><input class="input" id="shipPhone" placeholder="+84 900 000 000"></div>
+          </div>
+          <div class="form-row-checkout">
+            <div class="form-col-checkout"><label>Email</label><input class="input" id="shipEmail" placeholder="you@example.com"></div>
+          </div>
+          <div class="form-row-checkout">
+            <div class="form-col-checkout"><label>Address</label><input class="input" id="shipAddress" placeholder="123 Nguyen Hue"></div>
+          </div>
+          <div class="form-row-checkout">
+            <div class="form-col-checkout"><label>District</label><input class="input" id="shipDistrict" placeholder="Quan 1"></div>
+            <div class="form-col-checkout"><label>City</label><select class="input" id="shipCity"><option>Ho Chi Minh</option><option>Hanoi</option><option>Da Nang</option><option>Other</option></select></div>
+          </div>
+          <div class="checkout-btns">
+            <button class="btn-secondary" id="backToStep1">&larr; Back</button>
+            <button class="btn-primary" id="toStep3">Review Order &rarr;</button>
           </div>
         </div>
       </div>
       <div class="checkout-step" id="step3">
         <div id="orderSummary"></div>
-        <label style="display:block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);margin:.8rem 0 .5rem">Payment Method</label>
+        <label class="payment-label-title">Payment Method</label>
         <div class="payment-options">
-          <label class="payment-option active"><input type="radio" name="payment" value="cod" checked><span class="payment-label">💵 Cash on Delivery</span></label>
-          <label class="payment-option"><input type="radio" name="payment" value="bank"><span class="payment-label">🏦 Bank Transfer</span></label>
-          <label class="payment-option"><input type="radio" name="payment" value="momo"><span class="payment-label">📱 MoMo / ZaloPay</span></label>
+          <label class="payment-option active"><input type="radio" name="payment" value="cod" checked><span>&#128176; Cash on Delivery</span></label>
+          <label class="payment-option"><input type="radio" name="payment" value="bank"><span>&#127974; Bank Transfer</span></label>
+          <label class="payment-option"><input type="radio" name="payment" value="momo"><span>&#128241; MoMo / ZaloPay</span></label>
         </div>
-        <div style="display:flex;gap:.8rem;margin-top:1.2rem">
-          <button class="btn-secondary" style="flex:1;justify-content:center" id="backToStep2">← Back</button>
-          <button class="btn-primary" style="flex:2;justify-content:center" id="placeOrderBtn">Place Order 🎉</button>
+        <div class="checkout-btns">
+          <button class="btn-secondary" id="backToStep2">&larr; Back</button>
+          <button class="btn-primary" id="placeOrderBtn">Place Order</button>
         </div>
       </div>
       <div class="checkout-step" id="step4">
         <div class="order-success">
-          <div class="success-icon">🎉</div>
+          <div class="success-icon">&#127881;</div>
           <h3>Order Placed!</h3>
           <p>Your order number is</p>
           <div class="order-id" id="orderIdDisplay">#CW-0000</div>
@@ -200,9 +251,6 @@ button>
     </div>
   </div>
 
-  <!-- FLOATING CONTACT -->
-  <a href="https://zalo.me/yourzaloid" target="_blank" class="float-contact" aria-label="Chat on Zalo">💬</a>
-
   <!-- TOAST -->
   <div class="toast-container" id="toastContainer"></div>
 
@@ -210,7 +258,7 @@ button>
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="img/logo.svg" alt="Clone Waters"></div>
+        <div class="footer-logo"><img src="img/logo.svg" alt="Clone Waters" style="height:36px;width:auto;display:block;margin-bottom:.8rem"></div>
         <p>Psychedelic craft beer from Vietnam. Small batches, bold flavors, wild labels.</p>
         <div class="footer-social">
           <a href="https://facebook.com/clonewaters" target="_blank">fb</a>
@@ -219,13 +267,28 @@ button>
           <a href="https://zalo.me/yourzaloid" target="_blank">zl</a>
         </div>
       </div>
-      <div class="footer-col"><h4>SHOP</h4><a href="#releases">All Releases</a><a href="#">Merch</a><a href="#">Gift Cards</a></div>
-      <div class="footer-col"><h4>BRAND</h4><a href="#">Our Story</a><a href="#">The Bear</a><a href="#">Collabs</a></div>
-      <div class="footer-col"><h4>SUPPORT</h4><a href="#">FAQ</a><a href="#">Shipping</a><a href="#">Contact</a></div>
+      <div class="footer-col">
+        <h4>SHOP</h4>
+        <a href="#releases">All Releases</a>
+        <a href="#">Merch</a>
+        <a href="#">Gift Cards</a>
+      </div>
+      <div class="footer-col">
+        <h4>BRAND</h4>
+        <a href="#">Our Story</a>
+        <a href="#">The Bear</a>
+        <a href="#">Collabs</a>
+      </div>
+      <div class="footer-col">
+        <h4>SUPPORT</h4>
+        <a href="#">FAQ</a>
+        <a href="#">Shipping</a>
+        <a href="#">Contact</a>
+      </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 CLONE WATERS</span>
-      <div class="age-badge">🔞 18+ Only</div>
+      <span>&copy; 2026 CLONE WATERS</span>
+      <div class="age-badge">18+ Only</div>
       <span>Ho Chi Minh City, Vietnam</span>
     </div>
   </footer>
