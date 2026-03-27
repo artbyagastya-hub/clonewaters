@@ -1,7 +1,7 @@
 /* =============================================
    DATA STORE
    ============================================= */
-var LABEL_IMAGE = 'img/teddy-hopper.png';
+var LABEL_IMAGE = 'img/teddy-hopper-front.png';
 
 var products = [
   {
