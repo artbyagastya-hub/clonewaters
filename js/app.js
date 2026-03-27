@@ -169,8 +169,24 @@ var products = [
       var gltfHeight = box.max.y - box.min.y;
       var centerY = (box.max.y + box.min.y) / 2;
       
-      // The flat area of a 350ml can is roughly 75-80% of its total height
-      var stickerHeight = gltfHeight * 0.78; 
+      // Scale the overall can 30% bigger
+      gltf.scene.scale.set(1.3, 1.3, 1.3);
+
+      // Fix "Black Aluminum": The downloaded native material relies on complex environment reflections.
+      // Replacing it with a generic shiny silver material for standard WebGL lights solves it!
+      var silverMat = new THREE.MeshStandardMaterial({
+        color: 0xdddddd,
+        metalness: 0.8,
+        roughness: 0.2
+      });
+      gltf.scene.traverse(function(child) {
+        if (child.isMesh) {
+          child.material = silverMat;
+        }
+      });
+      
+      // Sizing the sticker tightly to the flat area and lowering it slightly
+      var stickerHeight = gltfHeight * 0.74; 
       
       var stickerGeo = new THREE.CylinderGeometry(radius + 0.01, radius + 0.01, stickerHeight, 64, 1, true);
       
@@ -183,11 +199,13 @@ var products = [
       });
       
       var stickerMesh = new THREE.Mesh(stickerGeo, stickerMat);
-      stickerMesh.position.y = centerY;
+      // Lower the sleeve slightly down the Y axis to perfectly line up with the can's bevels
+      stickerMesh.position.y = centerY - (gltfHeight * 0.045);
       
       // We add the sleeve directly to the model so they naturally move/scale together
       gltf.scene.add(stickerMesh);
       can.add(gltf.scene);
+
       
     }, undefined, function(error) {
       console.error(error);
