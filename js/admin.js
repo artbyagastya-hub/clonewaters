@@ -509,8 +509,8 @@ function savePresale() {
   presales.push({
     id: nextPresaleId++,
     product: document.getElementById('psProduct').value || 'TBD',
-    date: document.getElementById('5-01',
-    start: document.getElementById('psStart').value ||psDate').value || '2026-0 '2026-04-15T10:00',
+    date: document.getElementById('psDate').value || '2026-05-01',
+    start: document.getElementById('psStart').value || '2026-04-15T10:00',
     end: document.getElementById('psEnd').value || '2026-04-30T23:59',
     alloc: parseInt(document.getElementById('psAlloc').value) || 500,
     maxPer: parseInt(document.getElementById('psMax').value) || 12,
@@ -576,8 +576,13 @@ function adjustPoints(idx, amount) {
   if (members[idx].points >= 2000) {
     members[idx].tier = 'master';
   } else if (members[idx].points >= 500) {
-    members[idx].tier = ' > 0 ? 'Awarded' : 'Deducted';
-  showToast(action + ' ' + Math.abs(amount) + ' points to ' + members[idx].name, 'success');
+    members[idx].tier = 'dank';
+  } else {
+    members[idx].tier = 'hopper';
+  }
+
+  var action = amount > 0 ? 'Awarded' : 'Deducted';
+  showToast(action + ' ' + Math.abs(amount) + ' points for ' + members[idx].name, 'success');
   renderMembers();
 }
 
@@ -588,12 +593,7 @@ function viewMember(idx) {
 
   document.getElementById('memberModalTitle').textContent = m.name;
 
-';
-  }
-
-  var action = amountdank';
-  } else {
-    members[idx].tier = 'hopper  document.getElementById('memberModalBody').innerHTML =
+  document.getElementById('memberModalBody').innerHTML =
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1.5rem">' +
       '<div style="background:var(--surface);border-radius:10px;padding:1rem;text-align:center">' +
         '<div style="font-family:var(--ff-display);font-size:1.8rem;color:var(--neon)">' + m.points.toLocaleString() + '</div>' +
