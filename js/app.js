@@ -1,7 +1,7 @@
 (function() {
 "use strict";
 
-var LABEL = "img/teddy-hopper-label.png";
+var LABEL = "img/teddy-hopper-front.png";
 var cart = [];
 
 var products = [
