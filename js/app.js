@@ -160,61 +160,28 @@ var products = [
       }
     });
 
-    var bodyGeo = new THREE.CylinderGeometry(0.85, 0.85, 2.8, 64, 1, true);
-    var bodyMat = new THREE.MeshStandardMaterial({
-      map: labelTex,
-      metalness: 0.3,
-      roughness: 0.35,
-      side: THREE.DoubleSide
+    var loader = new THREE.GLTFLoader();
+    loader.load('img/aluminium_can-_350ml.glb', function(gltf) {
+      // Scale and position adjustment to match previous procedural can.
+      // E.g., if the can was modeled very large or small, you might need scale.
+      // gltf.scene.scale.set(0.1, 0.1, 0.1); 
+      // gltf.scene.position.y = -1.5;
+      
+      // We apply the current site's label to any mesh having 'Cylinder' or 'Body' in name, 
+      // or to all meshes if the user's model relies entirely on overrides.
+      gltf.scene.traverse(function(child) {
+        if (child.isMesh) {
+          // If building our own materials over the base GLB structure dynamically:
+          if(child.name.toLowerCase().includes('body') || child.name.toLowerCase().includes('label')){
+             child.material.map = labelTex;
+             child.material.needsUpdate = true;
+          }
+        }
+      });
+      can.add(gltf.scene);
+    }, undefined, function(error) {
+      console.error(error);
     });
-    can.add(new THREE.Mesh(bodyGeo, bodyMat));
-
-    var silverMat = new THREE.MeshStandardMaterial({
-      color: 0xdddddd,
-      metalness: 0.9,
-      roughness: 0.2,
-      envMapIntensity: 2.0
-    });
-
-    var topGeo = new THREE.CylinderGeometry(0.87, 0.87, 0.08, 64);
-    var topMesh = new THREE.Mesh(topGeo, silverMat);
-    topMesh.position.y = 1.44;
-    can.add(topMesh);
-
-    var rimGeo = new THREE.TorusGeometry(0.87, 0.03, 12, 64);
-    var rimMesh = new THREE.Mesh(rimGeo, silverMat);
-    rimMesh.rotation.x = Math.PI / 2;
-    rimMesh.position.y = 1.48;
-    can.add(rimMesh);
-
-    var tabMat2 = new THREE.MeshStandardMaterial({
-      color: 0xcccccc,
-      metalness: 0.85,
-      roughness: 0.25
-    });
-
-    var tabGeo2 = new THREE.CylinderGeometry(0.14, 0.14, 0.02, 16);
-    var tabMesh2 = new THREE.Mesh(tabGeo2, tabMat2);
-    tabMesh2.position.set(0.18, 1.5, 0);
-    can.add(tabMesh2);
-
-    var tabRingGeo2 = new THREE.TorusGeometry(0.1, 0.015, 8, 24);
-    var tabRingMesh2 = new THREE.Mesh(tabRingGeo2, tabMat2);
-    tabRingMesh2.rotation.x = Math.PI / 2;
-    tabRingMesh2.position.set(0.18, 1.51, 0);
-    can.add(tabRingMesh2);
-
-    var botGeo2 = new THREE.CylinderGeometry(0.87, 0.84, 0.08, 64);
-    var botMesh2 = new THREE.Mesh(botGeo2, silverMat);
-    botMesh2.position.y = -1.44;
-    can.add(botMesh2);
-
-    var indGeo2 = new THREE.SphereGeometry(0.6, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
-    var indMesh2 = new THREE.Mesh(indGeo2, silverMat);
-    indMesh2.rotation.x = Math.PI;
-    indMesh2.position.y = -1.4;
-    indMesh2.scale.y = 0.15;
-    can.add(indMesh2);
 
     function animate() {
       requestAnimationFrame(animate);
