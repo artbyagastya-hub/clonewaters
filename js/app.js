@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  var LABEL = "img/teddy-hopper-front.png";
+  var LABEL = "img/teddy-hopper-label.png";
   var cart = [];
 
   var products = [
@@ -130,6 +130,15 @@
     var rimLight = new THREE.PointLight(0xffffff, 0.6, 10);
     rimLight.position.set(-3, 0, 2);
     scene.add(rimLight);
+
+    var frontLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    frontLight.position.set(0, 0, 5);
+    scene.add(frontLight);
+
+    var bottomLight = new THREE.DirectionalLight(0xffffff, 0.4);
+    bottomLight.position.set(0, -3, 2);
+    scene.add(bottomLight);
+
 
     try {
       var pmrem = new THREE.PMREMGenerator(renderer);
