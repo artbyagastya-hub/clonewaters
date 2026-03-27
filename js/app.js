@@ -162,51 +162,33 @@ var products = [
 
     var loader = new THREE.GLTFLoader();
     loader.load('img/aluminium_can-_350ml.glb', function(gltf) {
-      // Scale and position adjustment to match previous procedural can.
-      // E.g., if the can was modeled very large or small, you might need scale.
-      // gltf.scene.scale.set(0.1, 0.1, 0.1); 
-      // gltf.scene.position.y = -1.5;
       
-      // We apply the current site's label to any mesh having 'Cylinder' or 'Body' in name, 
-      // or to all meshes if the user's model relies entirely on overrides.
-      gltf.scene.traverse(function(child) {
-        if (child.isMesh) {
-          // The sketchfab GLB is missing UV parameters (TEXCOORD_0).
-          // We must generate cylindrical UVs on the fly so the texture wraps!
-          if (!child.geometry.attributes.uv) {
-            var pos = child.geometry.attributes.position;
-            var uvs = new Float32Array(pos.count * 2);
-            child.geometry.computeBoundingBox();
-            var box = child.geometry.boundingBox;
-            var height = box.max.y - box.min.y;
-            for (var i = 0; i < pos.count; i++) {
-              var x = pos.getX(i);
-              var y = pos.getY(i);
-              var z = pos.getZ(i);
-              // Calculate cylindrical coordinates wrapped around Y axis
-              var u = (Math.atan2(x, z) / (2 * Math.PI)) + 0.5;
-              var v = (y - box.min.y) / height;
-              uvs[i * 2] = u;
-              uvs[i * 2 + 1] = v;
-            }
-            child.geometry.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
-          }
-          
-          // Apply the label material only to the main cylindrical body.
-          // The body mesh in this GLB has ~39,000 vertices, tabs/rims have <5,000.
-          if (child.geometry.attributes.position.count > 10000) {
-            labelTex.flipY = false; // Important for procedurally generated GLTF UVs
-            child.material = new THREE.MeshStandardMaterial({
-              map: labelTex,
-              metalness: 0.3,
-              roughness: 0.35,
-              side: THREE.DoubleSide
-            });
-            child.material.needsUpdate = true;
-          }
-        }
+      // Calculate the dimensions of the GLB to create a perfectly wrapping sticker
+      var box = new THREE.Box3().setFromObject(gltf.scene);
+      var radius = (box.max.x - box.min.x) / 2;
+      var gltfHeight = box.max.y - box.min.y;
+      var centerY = (box.max.y + box.min.y) / 2;
+      
+      // The flat area of a 350ml can is roughly 75-80% of its total height
+      var stickerHeight = gltfHeight * 0.78; 
+      
+      var stickerGeo = new THREE.CylinderGeometry(radius + 0.01, radius + 0.01, stickerHeight, 64, 1, true);
+      
+      var stickerMat = new THREE.MeshStandardMaterial({
+        map: labelTex,
+        metalness: 0.1,
+        roughness: 0.5,
+        transparent: true,
+        side: THREE.DoubleSide
       });
+      
+      var stickerMesh = new THREE.Mesh(stickerGeo, stickerMat);
+      stickerMesh.position.y = centerY;
+      
+      // We add the sleeve directly to the model so they naturally move/scale together
+      gltf.scene.add(stickerMesh);
       can.add(gltf.scene);
+      
     }, undefined, function(error) {
       console.error(error);
     });
