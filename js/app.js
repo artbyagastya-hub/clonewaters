@@ -84,45 +84,8 @@ function doLogout() {
   switchTab("login");
 }
 
-/* ---- 3D CAN ---- */
-function buildCan(url) {
-  var c = document.getElementById("canCylinder");
-  if (!c) return;
-  c.innerHTML = "";
-  var count = 36;
-  var w = 22;
-  var r = 85;
-  for (var i = 0; i < count; i++) {
-    var a = (360 / count) * i;
-    var p = document.createElement("div");
-    p.className = "can-panel";
-    p.style.width = w + "px";
-    p.style.transform = "rotateY(" + a + "deg) translateZ(" + r + "px)";
-    var bg = document.createElement("div");
-    bg.className = "label-bg";
-    if (url) {
-      bg.style.backgroundImage = "url(" + url + ")";
-      bg.style.backgroundSize = (count * 100) + "% 100%";
-      bg.style.backgroundPosition = ((i / (count - 1)) * 100) + "% 50%";
-    } else {
-      bg.style.background = "linear-gradient(" + (130 + a) + "deg, #0a0a2e, #1a0a3e, #0d2847, #0a3d2e)";
-    }
-    var sh = document.createElement("div");
-    sh.className = "shine";
-    var el1 = document.createElement("div");
-    el1.className = "edge edge-l";
-    var el2 = document.createElement("div");
-    el2.className = "edge edge-r";
-    p.appendChild(bg);
-    p.appendChild(sh);
-    p.appendChild(el1);
-    p.appendChild(el2);
-    c.appendChild(p);
-  }
-}
 
 
-buildCan(LABEL);
 
 /* ---- RELEASES ---- */
 function renderReleases(filter) {
@@ -334,21 +297,7 @@ function observeReveal() {
   for (var j = 0; j < els.length; j++) obs.observe(els[j]);
 }
 
-/* ---- CAN TILT ---- */
-var ca = document.querySelector(".hero-can-area");
-if (ca) {
-  ca.addEventListener("mousemove", function(e) {
-    var r = ca.getBoundingClientRect();
-    var x = (e.clientX - r.left) / r.width - 0.5;
-    var y = (e.clientY - r.top) / r.height - 0.5;
-    var cf = document.getElementById("canFloat");
-    if (cf) cf.style.transform = "translateY(-9px) rotateY(" + (x * 20) + "deg) rotateX(" + (-y * 12) + "deg)";
-  });
-  ca.addEventListener("mouseleave", function() {
-    var cf = document.getElementById("canFloat");
-    if (cf) cf.style.transform = "";
-  });
-}
+
 
 /* ---- SMOOTH SCROLL ---- */
 var sLinks = document.querySelectorAll('a[href^="#"]');
