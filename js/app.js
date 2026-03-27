@@ -529,7 +529,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   });
 });
 
-
 /* =============================================
    CAN MOUSE TILT
    ============================================= */
@@ -539,18 +538,22 @@ if (canArea) {
     var rect = canArea.getBoundingClientRect();
     var x = (e.clientX - rect.left) / rect.width - 0.5;
     var y = (e.clientY - rect.top) / rect.height - 0.5;
-    var cf = document.getElementById('canFloat function() {
     var cf = document.getElementById('canFloat');
-    if (cf) cf.style.transform = 'translateY(-9px) rotateY(' + (x * 20) + 'deg) rotateX(' + (-y * 12) + 'deg)';
+    if (cf) {
+      cf.style.transform = 'translateY(-9px) rotateY(' + (x * 20) + 'deg) rotateX(' + (-y * 12) + 'deg)';
+    }
   });
-  canArea.addEventListener('mouseleave',');
-    if (cf) cf.style.transform = '';
+  canArea.addEventListener('mouseleave', function() {
+    var cf = document.getElementById('canFloat');
+    if (cf) {
+      cf.style.transform = '';
+    }
   });
 }
 
 
 /* =============================================
-   EVENT BINDINGS (all via JS, no inline)
+   EVENT BINDINGS
    ============================================= */
 document.getElementById('ageYes').addEventListener('click', enterSite);
 document.getElementById('ageNo').addEventListener('click', leaveSite);
@@ -612,3 +615,4 @@ document.getElementById('checkoutModal').addEventListener('click', function(e) {
    ============================================= */
 renderReleases();
 observeReveal();
+
