@@ -169,10 +169,22 @@ var products = [
       var gltfHeight = box.max.y - box.min.y;
       var centerY = (box.max.y + box.min.y) / 2;
       
-      // Scale the overall can 40% bigger
-      gltf.scene.scale.set(1.4, 1.4, 1.4);
+      // Scale the overall can 30% bigger
+      gltf.scene.scale.set(1.3, 1.3, 1.3);
+
+      // Restore bright metallic silver manually (metalness at 0.6 prevents void black)
+      var silverMat = new THREE.MeshStandardMaterial({
+        color: 0xeeeeee,
+        metalness: 0.6,
+        roughness: 0.3
+      });
+      gltf.scene.traverse(function(child) {
+        if (child.isMesh) {
+          child.material = silverMat;
+        }
+      });
       
-      // Sizing the sticker tightly to the flat area and centering it upward
+      // Sizing the sticker tightly to the flat area
       var stickerHeight = gltfHeight * 0.76; 
       
       var stickerGeo = new THREE.CylinderGeometry(radius + 0.01, radius + 0.01, stickerHeight, 64, 1, true);
@@ -186,8 +198,8 @@ var products = [
       });
       
       var stickerMesh = new THREE.Mesh(stickerGeo, stickerMat);
-      // Lift the sleeve up slightly so it perfectly aligns with the can's middle section
-      stickerMesh.position.y = centerY + (gltfHeight * 0.012);
+      // Position the sleeve downward precisely to center it perfectly between the bevels
+      stickerMesh.position.y = centerY - (gltfHeight * 0.015);
       
       // We add the sleeve directly to the model so they naturally move/scale together
       gltf.scene.add(stickerMesh);
