@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO -->
+  <title>Clone Waters — Psychedelic Craft Beer from Vietnam | DTC Delivery</title>
+  <meta name="description" content="Clone Waters brews small-batch psychedelic craft beer in Vietnam. Double IPAs, sours, stouts — delivered to your door.">
+  <meta name="keywords" content="craft beer vietnam, DTC beer, clone waters, teddy hopper, DIPA, hazy IPA, saigon craft beer, bia thủ công">
+  <link rel="canonical" href="https://www.clonewaters.com/">
+
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="en" href="https://www.clonewaters.com/?lang=en">
+  <link rel="alternate" hreflang="vi" href="https://www.clonewaters.com/?lang=vi">
+  <link rel="alternate" hreflang="x-default" href="https://www.clonewaters.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.clonewaters.com/">
+  <meta property="og:title" content="Clone Waters — Psychedelic Craft Beer from Vietnam">
+  <meta property="og:description" content="Small-batch psychedelic craft beer. Teddy Hopper DIPA and more — delivered to your door.">
+  <meta property="og:image" content="https://www.clonewaters.com/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="vi_VN">
+  <meta property="og:site_name" content="Clone Waters">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Clone Waters — Psychedelic Craft Beer">
+  <meta name="twitter:description" content="Psychedelic craft beer from Vietnam. Delivered DTC.">
+  <meta name="twitter:image" content="https://www.clonewaters.com/img/og-image.jpg">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Brand",
+    "name": "Clone Waters",
+    "url": "https://www.clonewaters.com",
+    "logo": "https://www.clonewaters.com/img/logo.svg",
+    "description": "Psychedelic craft beer brewed in small batches in Vietnam",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ho Chi Minh City",
+      "addressCountry": "VN"
+    },
+    "sameAs": [
+      "https://www.facebook.com/clonewaters",
+      "https://www.instagram.com/clonewaters",
+      "https://www.tiktok.com/@clonewaters"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Clone Waters Beer",
+      "itemListElement": [
+        {
+          "@type": "Product",
+          "name": "Teddy Hopper DIPA",
+          "description": "Double IPA with Amarillo, Centennial, Chinook, Columbus & Simcoe hops. 7.7% ABV.",
+          "brand": { "@type": "Brand", "name": "Clone Waters" },
+          "offers": {
+            "@type": "Offer",
+            "price": "219000",
+            "priceCurrency": "VND",
+            "availability": "https://schema.org/InStock",
+            "url": "https://www.clonewaters.com/#releases"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+</head>
+<body>
+
+  <!-- AGE GATE -->
+  <div class="age-overlay" id="ageGate">
+    <div class="age-box">
+      <div class="age-logo">CLONE WATERS</div>
+      <h2 data-en="ARE YOU OF LEGAL DRINKING AGE?" data-vn="BẠN ĐÃ ĐỦ TUỔI UỐNG RƯỢU CHƯA?">ARE YOU OF LEGAL DRINKING AGE?</h2>
+      <p data-en="You must be of legal drinking age in your country to enter this site." data-vn="Bạn phải đủ tuổi uống rượu theo luật pháp quốc gia để truy cập trang web này.">You must be of legal drinking age in your country to enter this site.</p>
+      <div class="age-btns">
+        <button class="age-yes" onclick="enterSite()" data-en="YES, I AM" data-vn="CÓ, TÔI ĐỦ">YES, I AM</button>
+        <button class="age-no" onclick="leaveSite()" data-en="NO" data-vn="KHÔNG">NO</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">CLONE WATERS</a>
+    <div class="nav-links">
+      <a href="#releases" data-en="Releases" data-vn="Sản Phẩm">Releases</a>
+      <a href="#members" data-en="Members" data-vn="Thành Viên">Members</a>
+      <a href="#" data-en="About" data-vn="Giới Thiệu">About</a>
+      <a href="#" data-en="FAQ" data-vn="Câu Hỏi">FAQ</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('vn')">VN</button>
+      </div>
+      <a href="#members" class="nav-join" data-en="Join" data-vn="Tham Gia">Join</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span data-en="DTC Craft Beer — Vietnam" data-vn="Bia Thủ Công — Việt Nam">DTC Craft Beer — Vietnam</span>
+        </div>
+        <div class="hero-brand">
+          <span class="brand-c">CLONE</span>
+          <span class="brand-w">WATERS</span>
+        </div>
+        <p class="hero-tag" data-en="Psychedelic hops. Bold flavors. Brewed in small batches, delivered to your door." data-vn="Hops psychedelic. Hương vị đậm đà. Nấu số lượng nhỏ, giao tận nhà.">Psychedelic hops. Bold flavors. Brewed in small batches, delivered to your door.</p>
+        <div class="hero-actions">
+          <a href="#releases" class="btn-primary">
+            <span data-en="Shop Releases" data-vn="Mua Ngay">Shop Releases</span>
+            <span class="arrow">→</span>
+          </a>
+          <a href="#members" class="btn-secondary" data-en="Join the Club" data-vn="Tham Gia Câu Lạc Bộ">Join the Club</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">1</div>
+            <div class="stat-lbl" data-en="Release" data-vn="Đợt Phát Hành">Release</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">7.7%</div>
+            <div class="stat-lbl">ABV</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">330ml</div>
+            <div class="stat-lbl" data-en="Per Can" data-vn="Mỗi Lon">Per Can</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-can-area">
+        <span class="sparkle">✦</span>
+        <span class="sparkle">✧</span>
+        <span class="sparkle">✦</span>
+        <span class="sparkle">✧</span>
+        <span class="sparkle">✦</span>
+        <span class="sparkle">✧</span>
+        <div class="can-scene">
+          <div class="can-float" id="canFloat">
+            <div class="can-3d" id="can3d">
+              <div class="can-cylinder" id="canCylinder"></div>
+              <div class="can-tab"></div>
+              <div class="can-rim-top"></div>
+              <div class="can-rim-bottom"></div>
+              <div class="can-shadow"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELEASES -->
+  <section id="releases">
+    <header class="sec-header reveal">
+      <div class="sec-label" data-en="The Lineup" data-vn="Danh Sách">The Lineup</div>
+      <h2 class="sec-title">
+        <span data-en="RELEASES" data-vn="ĐỢT PHÁT HÀNH">RELEASES</span><br>
+        <span class="sec-accent" data-en="past, present &amp; future" data-vn="quá khứ, hiện tại &amp; tương lai">past, present &amp; future</span>
+      </h2>
+    </header>
+
+    <div class="filters reveal">
+      <button class="filter-btn active" data-filter="all" data-en="All" data-vn="Tất Cả">All</button>
+      <button class="filter-btn" data-filter="upcoming" data-en="Upcoming" data-vn="Sắp Ra">Upcoming</button>
+      <button class="filter-btn" data-filter="current" data-en="Available" data-vn="Còn Hàng">Available</button>
+      <button class="filter-btn" data-filter="past" data-en="Past" data-vn="Đã Hết">Past</button>
+    </div>
+
+    <div class="rel-grid" id="relGrid"></div>
+  </section>
+
+  <!-- MEMBERS -->
+  <section id="members">
+    <header class="sec-header reveal">
+      <div class="sec-label" data-en="The Inner Circle" data-vn="Câu Lạc Bộ">The Inner Circle</div>
+      <h2 class="sec-title">
+        <span data-en="MEMBERS" data-vn="THÀNH VIÊN">MEMBERS</span><br>
+        <span class="sec-accent" data-en="earn, unlock, enjoy" data-vn="tích điểm, mở khóa, tận hưởng">earn, unlock, enjoy</span>
+      </h2>
+    </header>
+
+    <div class="mem-wrap">
+      <div class="mem-info reveal">
+        <p data-en="Join the Clone Waters crew. Get early access to every drop, earn points on every can, and climb the ranks. Members-only releases sell out in minutes." data-vn="Tham gia đội ngũ Clone Waters. Nhận quyền truy cập sớm, tích điểm mỗi lon, thăng hạng. Đợt phát hành thành viên hết hàng trong phút chốc.">Join the Clone Waters crew. Get early access to every drop, earn points on every can, and climb the ranks. Members-only releases sell out in minutes.</p>
+        <div class="tiers">
+          <div class="tier-card">
+            <div class="tier-icon">🍺</div>
+            <div class="tier-info"><h4>HOPPER</h4><p data-en="1x points, early access" data-vn="1x điểm, ưu tiên">1x points, early access</p></div>
+            <div class="tier-pts">0 PTS</div>
+          </div>
+          <div class="tier-card">
+            <div class="tier-icon">🍻</div>
+            <div class="tier-info"><h4>DANK FINDER</h4><p data-en="2x points, free shipping" data-vn="2x điểm, free ship">2x points, free shipping</p></div>
+            <div class="tier-pts">500 PTS</div>
+          </div>
+          <div class="tier-card">
+            <div class="tier-icon">👑</div>
+            <div class="tier-info"><h4>BREW MASTER</h4><p data-en="3x points, collabs, merch" data-vn="3x điểm, collab, merch">3x points, collabs, merch</p></div>
+            <div class="tier-pts">2000 PTS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-card reveal reveal-d2">
+        <div id="authForms">
+          <div class="auth-tabs">
+            <button class="auth-tab active" onclick="switchTab('login')" data-en="Log In" data-vn="Đăng Nhập">Log In</button>
+            <button class="auth-tab" onclick="switchTab('register')" data-en="Sign Up" data-vn="Đăng Ký">Sign Up</button>
+          </div>
+          <form class="auth-form active" id="loginForm" onsubmit="doLogin(event)">
+            <div class="form-group">
+              <label data-en="Email" data-vn="Email">Email</label>
+              <input type="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label data-en="Password" data-vn="Mật Khẩu">Password</label>
+              <input type="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="form-submit" data-en="Log In" data-vn="Đăng Nhập">Log In</button>
+            <div class="form-footer"><a href="#" data-en="Forgot password?" data-vn="Quên mật khẩu?">Forgot password?</a></div>
+          </form>
+          <form class="auth-form" id="registerForm" onsubmit="doRegister(event)">
+            <div class="form-group">
+              <label data-en="Full Name" data-vn="Họ Tên">Full Name</label>
+              <input type="text" placeholder="Nguyen Van A" required>
+            </div>
+            <div class="form-group">
+              <label data-en="Email" data-vn="Email">Email</label>
+              <input type="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label data-en="Phone" data-vn="SĐT">Phone</label>
+              <input type="tel" placeholder="+84 900 000 000">
+            </div>
+            <div class="form-group">
+              <label data-en="Password" data-vn="Mật Khẩu">Password</label>
+              <input type="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="form-submit" data-en="Create Account" data-vn="Tạo Tài Khoản">Create Account</button>
+            <div class="form-footer"><span data-en="By signing up you confirm you are 18+" data-vn="Đăng ký = xác nhận 18+">By signing up you confirm you are 18+</span></div>
+          </form>
+        </div>
+        <div class="dashboard" id="dashboardView">
+          <div class="dash-header">
+            <div class="dash-user">
+              <div class="user-avatar">CW</div>
+              <div class="user-info">
+                <h4 data-en="CLONE FAN" data-vn="CLONE FAN">CLONE FAN</h4>
+                <p data-en="Dank Finder — 780 pts" data-vn="Dank Finder — 780 điểm">Dank Finder — 780 pts</p>
+              </div>
+            </div>
+            <button class="logout-btn" onclick="doLogout()" data-en="Log Out" data-vn="Đăng Xuất">Log Out</button>
+          </div>
+          <div class="dash-stats">
+            <div class="dash-stat"><div class="dash-val">780</div><div class="dash-lbl" data-en="Points" data-vn="Điểm">Points</div></div>
+            <div class="dash-stat"><div class="dash-val">4</div><div class="dash-lbl" data-en="Orders" data-vn="Đơn Hàng">Orders</div></div>
+            <div class="dash-stat"><div class="dash-val">1,220</div><div class="dash-lbl" data-en="To Master" data-vn="Đến Master">To Master</div></div>
+          </div>
+          <div class="orders-list">
+            <h4 data-en="Recent Orders" data-vn="Đơn Hàng Gần">Recent Orders</h4>
+            <div class="order-item">
+              <div class="order-icon">🍺</div>
+              <div class="order-details"><h5>Teddy Hopper × 6</h5><p>Mar 20, 2026 — 1,254K</p></div>
+              <span class="order-st st-delivered" data-en="Delivered" data-vn="Đã Giao">Delivered</span>
+            </div>
+            <div class="order-item">
+              <div class="order-icon">🚚</div>
+              <div class="order-details"><h5>Teddy Hopper × 4</h5><p>Mar 25, 2026 — 876K</p></div>
+              <span class="order-st st-shipped" data-en="Shipping" data-vn="Đang Giao">Shipping</span>
+            </div>
+            <div class="order-item">
+              <div class="order-icon">⏳</div>
+              <div class="order-details"><h5>Teddy Hopper × 12</h5><p>Mar 26, 2026 — 2,388K</p></div>
+              <span class="order-st st-processing" data-en="Processing" data-vn="Đang Xử Lý">Processing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">CLONE WATERS</div>
+        <p data-en="Psychedelic craft beer from Vietnam. Small batches, bold flavors, wild labels." data-vn="Bia thủ công psychedelic từ Việt Nam.">Psychedelic craft beer from Vietnam. Small batches, bold flavors, wild labels.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="TikTok">tk</a>
+          <a href="#" aria-label="Zalo">zl</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>SHOP</h4>
+        <a href="#releases" data-en="All Releases" data-vn="Tất Cả">All Releases</a>
+        <a href="#" data-en="Merch" data-vn="Merch">Merch</a>
+        <a href="#" data-en="Gift Cards" data-vn="Thẻ Quà">Gift Cards</a>
+      </div>
+      <div class="footer-col">
+        <h4>BRAND</h4>
+        <a href="#" data-en="Our Story" data-vn="Câu Chuyện">Our Story</a>
+        <a href="#" data-en="The Bear" data-vn="Chú Gấu">The Bear</a>
+        <a href="#" data-en="Collabs" data-vn="Collab">Collabs</a>
+      </div>
+      <div class="footer-col">
+        <h4>SUPPORT</h4>
+        <a href="#" data-en="FAQ" data-vn="Câu Hỏi">FAQ</a>
+        <a href="#" data-en="Shipping" data-vn="Vận Chuyển">Shipping</a>
+        <a href="#" data-en="Contact" data-vn="Liên Hệ">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CLONE WATERS. <span data-en="All rights reserved." data-vn="Bảo lưu mọi quyền.">All rights reserved.</span></span>
+      <div class="age-badge"><span>🔞</span> <span data-en="18+ Only" data-vn="18+">18+ Only</span></div>
+      <span data-en="Ho Chi Minh City, Vietnam" data-vn="TP.HCM, Việt Nam">Ho Chi Minh City, Vietnam</span>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
