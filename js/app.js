@@ -11,6 +11,7 @@ var products = [
   {id:4, name:"Saigon Session", style:"Rice Lager", abv:"4.5", ibu:"12", vol:"330", price:179, stock:0, soldOutAt:0, status:"past", desc:"Clean crisp rice lager with jasmine rice.", accent:"c", img:""}
 ];
 
+/* ---- AGE GATE ---- */
 function enterSite() {
   var el = document.getElementById("ageGate");
   if (el) el.classList.add("hidden");
@@ -26,6 +27,7 @@ if (localStorage.getItem("cw_age") === "1") {
   if (ae) ae.classList.add("hidden");
 }
 
+/* ---- LANGUAGE ---- */
 function setLang(lang) {
   var btns = document.querySelectorAll(".lang-btn");
   for (var i = 0; i < btns.length; i++) {
@@ -34,6 +36,7 @@ function setLang(lang) {
   }
 }
 
+/* ---- NAV SCROLL ---- */
 window.addEventListener("scroll", function() {
   var n = document.getElementById("navbar");
   if (n) {
@@ -42,6 +45,7 @@ window.addEventListener("scroll", function() {
   }
 });
 
+/* ---- AUTH ---- */
 function switchTab(tab) {
   var tabs = document.querySelectorAll(".auth-tab");
   var forms = document.querySelectorAll(".auth-form");
@@ -75,6 +79,211 @@ function doLogout() {
   switchTab("login");
 }
 
+/* =============================================
+   THREE.JS 3D CAN
+   ============================================= */
+function initCan() {
+  var container = document.getElementById("canCanvas");
+ ;
+
+  var width = container.clientWidth;
+  var height = container.clientHeight;
+
+  // Scene
+  var scene = new THREE.Scene();
+
+  // Camera
+  var camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 100);
+  camera.position.set(0, 0.5, 5);
+  camera.lookAt(0, 0, 0);
+
+  // Renderer
+  var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.2;
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  container.appendChild(renderer.domElement);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+  var keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
+  keyLight.position.set(3, 4, 5);
+  scene.add(keyLight);
+
+  var fillLight = new THREE.DirectionalLight(0x8888ff,  if (!container || typeof THREE === "undefined") return0.4);
+  fillLight.position.set(-3, 2, 3);
+  scene.add(fillLight);
+
+  var backLight = new THREE.DirectionalLight(0x39ff14, 0.3);
+  backLight.position.set(0, 2, -4);
+  scene.add(backLight);
+
+  var rimLight = new THREE.PointLight(0xffffff, 0.6, 10);
+  rimLight.position.set(-3, 0, 2);
+  scene.add(rimLight);
+
+  // Environment map for reflections
+  try {
+    var pmrem = new THREE.PMREMGenerator(renderer);
+    var envScene = new THREE.Scene();
+    envScene.background = new THREE.Color(0x111111);
+    envScene.add(new THREE.AmbientLight(0x404040, 1));
+    var el1 = new THREE.PointLight(0xffffff, 100, 0);
+    el1.position.set(5, 5, 5);
+    envScene.add(el1);
+    var el2 = new THREE.PointLight(0x8888ff, 50, 0);
+    el2.position.set(-5, 3, -5);
+    envScene.add(el2);
+    var el3 = new THREE.PointLight(0x39ff14, 30, 0);
+    el3.position.set(0, -3, 5);
+    envScene.add(el3);
+    scene.environment = pmrem.fromScene(envScene, 0.04).texture;
+    pmrem.dispose();
+  } catch (e) {
+    console.log("Env map skipped:", e);
+  }
+
+  // Label texture
+  var textureLoader = new THREE.TextureLoader();
+  var labelTexture = textureLoader.load(LABEL);
+  labelTexture.encoding = THREE.sRGBEncoding;
+
+  // Can group
+  var canGroup = new THREE.Group();
+
+  // Body (cylinder with label)
+  var bodyGeo = new THREE.CylinderGeometry(0.85, 0.85, 2.8, 64, 1, true);
+  var bodyMat = new THREE.MeshStandardMaterial({
+    map: labelTexture,
+    metalness: 0.3,
+    roughness: 0.35,
+    side: THREE.DoubleSide
+  });
+  var body = new THREE.Mesh(bodyGeo, bodyMat);
+  canGroup.add(body);
+
+  // Top cap (aluminum)
+  var topGeo = new THREE.CylinderGeometry(0.85, 0.85, 0.04, 64);
+  var metalMat = new THREE.MeshStandardMaterial({
+    color: 0xcccccc,
+    metalness: 0.95,
+    roughness: 0.15
+  });
+  var top = new THREE.Mesh(topGeo, metalMat);
+  top.position.y = 1.4;
+  canGroup.add(top);
+
+  // Top rim ring
+  var rimGeo = new THREE.TorusGeometry(0.85, 0.025, 8, 64);
+  var rim = new THREE.Mesh(rimGeo, metalMat);
+  rim.rotation.x = Math.PI / 2;
+  rim.position.y = 1.42;
+  canGroup.add(rim);
+
+  // Pull tab
+  var tabGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.015, 16);
+  var tabMat = new THREE.MeshStandardMaterial({
+    color: 0xbbbbbb,
+    metalness: 0.9,
+    roughness: 0.2
+  });
+  var tab = new THREE.Mesh(tabGeo, tabMat);
+  tab.position.set(0.15, 1.43, 0);
+  canGroup.add(tab);
+
+  var tabRingGeo = new THREE.TorusGeometry(0.08, 0.012, 8, 24);
+  var tabRing = new THREE.Mesh(tabRingGeo, tabMat);
+  tabRing.rotation.x = Math.PI / 2;
+  tabRing.position.set(0.15, 1.44, 0);
+  canGroup.add(tabRing);
+
+  // Bottom cap (aluminum)
+  var bottomGeo = new THREE.CylinderGeometry(0.85, 0.82, 0.04, 64);
+  var bottomMat = new THREE.MeshStandardMaterial({
+    color: 0xaaaaaa,
+    metalness: 0.95,
+    roughness: 0.2
+  });
+  var bottom = new THREE.Mesh(bottomGeo, bottomMat);
+  bottom.position.y = -1.4;
+  canGroup.add(bottom);
+
+  // Bottom indent (concave)
+  var indentGeo = new THREE.SphereGeometry(0.6, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+  var indent = new THREE.Mesh(indentGeo, bottomMat);
+  indent.rotation.x = Math.PI;
+  indent.position.y = -1.38;
+  indent.scale.y = 0.15;
+  canGroup.add(indent);
+
+  canGroup.position.y = 0.1;
+  scene.add(canGroup);
+
+  // Mouse interaction
+  var mouseDown = false;
+  var mouseX = 0;
+  var rotationSpeed = 0.008;
+  var targetSpeed = 0.008;
+
+  renderer.domElement.addEventListener("mousedown", function() { mouseDown = true; });
+  renderer.domElement.addEventListener("mouseup", function() { mouseDown = false; targetSpeed = 0.008; });
+  renderer.domElement.addEventListener("mouseleave", function() { mouseDown = false; targetSpeed = 0.008; });
+  renderer.domElement.addEventListener("mousemove", function(e) {
+    if (mouseDown) {
+      var rect = renderer.domElement.getBoundingClientRect();
+      var x = (e.clientX - rect.left) / rect.width - 0.5;
+      targetSpeed = x * 0.06;
+    }
+  });
+
+  // Touch support
+  renderer.domElement.addEventListener("touchstart", function() { mouseDown = true; }, {passive: true});
+  renderer.domElement.addEventListener("touchend", function() { mouseDown = false; targetSpeed = 0.008; });
+  renderer.domElement.addEventListener("touchmove", function(e) {
+    if (mouseDown && e.touches.length > 0) {
+      var rect = renderer.domElement.getBoundingClientRect();
+      var x = (e.touches[0].clientX - rect.left) / rect.width - 0.5;
+      targetSpeed = x * 0.06;
+    }
+  }, {passive: true});
+
+  // Gentle float
+  var floatTime = 0;
+
+  // Animate
+  function animate() {
+    requestAnimationFrame(animate);
+
+    // Auto-rotate or drag-rotate
+    rotationSpeed += (targetSpeed - rotationSpeed) * 0.05;
+    canGroup.rotation.y += rotationSpeed;
+
+    // Gentle float
+    floatTime += 0.015;
+    canGroup.position.y = 0.1 + Math.sin(floatTime) * 0.08;
+
+    // Slight tilt
+    canGroup.rotation.x = Math.sin(floatTime * 0.7) * 0.03;
+    canGroup.rotation.z = Math.cos(floatTime * 0.5) * 0.02;
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Resize
+  window.addEventListener("resize", function() {
+    width = container.clientWidth;
+    height = container.clientHeight;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+  });
+}
+
+/* ---- RELEASES ---- */
 function renderReleases(filter) {
   filter = filter || "all";
   var grid = document.getElementById("relGrid");
@@ -89,13 +298,13 @@ function renderReleases(filter) {
     if (p.status === "current") {
       bb = '<button class="btn-buy" data-add="' + p.id + '">Add to Cart - ' + p.price + 'K</button>';
     } else if (p.status === "past") {
-      bb = '<button class="btn-buy sold-out" disabled>Sold Out</button>';
-    }
-    var ih = "";
+      bb = '<button class="btn-buy sold-out" disabled "";
     if (p.img) {
       ih = '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" width="200" height="350">';
     } else {
-      var gr = {g:"#0a3d2e,#0d2847,#0a0a2e",p:"#2a0a4e,#1a0a3e,#0d0a2e",o:"#2a1500,#1a0a0a,#0d0a0a",c:"#0a2a3e,#0a1a2e,#0a0a1e"};
+      var gr = {g:"#0a>Sold Out</button>';
+    }
+    var ih =3d2e,#0d2847,#0a0a2e",p:"#2a0a4e,#1a0a3e,#0d0a2e",o:"#2a1500,#1a0a0a,#0d0a0a",c:"#0a2a3e,#0a1a2e,#0a0a1e"};
       ih = '<div class="placeholder-can" style="background:linear-gradient(135deg,' + (gr[p.accent] || gr.g) + ');color:var(--neon)">' + p.name + '</div>';
     }
     var card = document.createElement("article");
@@ -110,6 +319,7 @@ function renderReleases(filter) {
   bindAdd();
 }
 
+/* ---- CART ---- */
 function addToCart(id) {
   var p = null;
   for (var i = 0; i < products.length; i++) { if (products[i].id === id) { p = products[i]; break; } }
@@ -149,6 +359,7 @@ function bindAdd() {
   }
 }
 
+/* ---- CHECKOUT ---- */
 function openCheckout() {
   renderCart();
   document.getElementById("checkoutModal").classList.add("open");
@@ -344,6 +555,8 @@ document.getElementById("checkoutModal").addEventListener("click", function(e) {
   if (e.target === this) closeCheckout();
 });
 
+/* ---- INIT ---- */
+initCan();
 renderReleases();
 observeReveal();
 
