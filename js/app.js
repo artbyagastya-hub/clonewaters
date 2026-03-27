@@ -4,12 +4,17 @@
   var LABEL = "img/teddy-hopper-label.png";
   var cart = [];
 
-  var products = [
-    {id:1, name:"Teddy Hopper", style:"Double IPA", abv:"7.7", ibu:"15", vol:"330", price:219, stock:342, soldOutAt:20, status:"current", desc:"Our debut. Amarillo, Centennial, Chinook, Columbus and Simcoe hops.", accent:"g", img:LABEL},
-    {id:2, name:"Neon Lotus", style:"Fruited Sour", abv:"4.8", ibu:"8", vol:"330", price:199, stock:0, soldOutAt:0, status:"upcoming", desc:"Tart lychee and dragon fruit sour.", accent:"p", img:""},
-    {id:3, name:"Midnight Pho", style:"Spiced Stout", abv:"6.8", ibu:"25", vol:"330", price:219, stock:0, soldOutAt:0, status:"upcoming", desc:"Chocolate stout with star anise and cinnamon.", accent:"o", img:""},
-    {id:4, name:"Saigon Session", style:"Rice Lager", abv:"4.5", ibu:"12", vol:"330", price:179, stock:0, soldOutAt:0, status:"past", desc:"Clean crisp rice lager.", accent:"c", img:""}
-  ];
+  var LABEL = "img/teddy-hopper-label.png";
+var FRONT = "img/teddy-hopper-front.png";
+var cart = [];
+
+var products = [
+  {id:1, name:"Teddy Hopper", style:"Double IPA", abv:"7.7", ibu:"15", vol:"330", price:219, stock:342, soldOutAt:20, status:"current", desc:"Our debut. Amarillo, Centennial, Chinook, Columbus and Simcoe hops.", accent:"g", img:FRONT},
+  {id:2, name:"Neon Lotus", style:"Fruited Sour", abv:"4.8", ibu:"8", vol:"330", price:199, stock:0, soldOutAt:0, status:"upcoming", desc:"Tart lychee and dragon fruit sour.", accent:"p", img:""},
+  {id:3, name:"Midnight Pho", style:"Spiced Stout", abv:"6.8", ibu:"25", vol:"330", price:219, stock:0, soldOutAt:0, status:"upcoming", desc:"Chocolate stout with star anise and cinnamon.", accent:"o", img:""},
+  {id:4, name:"Saigon Session", style:"Rice Lager", abv:"4.5", ibu:"12", vol:"330", price:179, stock:0, soldOutAt:0, status:"past", desc:"Clean crisp rice lager.", accent:"c", img:""}
+];
+
 
   function enterSite() {
     var el = document.getElementById("ageGate");
@@ -89,77 +94,7 @@
   }
 
   function initCan() {
-    var container = document.getElementById("canCanvas");
-    if (!container) {
-      return;
-    }
-    if (typeof THREE === "undefined") {
-      return;
-    }
-
-    var w = container.clientWidth;
-    var h = container.clientHeight;
-
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(35, w / h, 0.1, 100);
-    camera.position.set(0, 0.5, 5);
-    camera.lookAt(0, 0, 0);
-
-    var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(w, h);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    container.appendChild(renderer.domElement);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-
-    var keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    keyLight.position.set(3, 4, 5);
-    scene.add(keyLight);
-
-    var fillLight = new THREE.DirectionalLight(0x8888ff, 0.4);
-    fillLight.position.set(-3, 2, 3);
-    scene.add(fillLight);
-
-    var backLight = new THREE.DirectionalLight(0x39ff14, 0.3);
-    backLight.position.set(0, 2, -4);
-    scene.add(backLight);
-
-    var rimLight = new THREE.PointLight(0xffffff, 0.6, 10);
-    rimLight.position.set(-3, 0, 2);
-    scene.add(rimLight);
-
-    var frontLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    frontLight.position.set(0, 0, 5);
-    scene.add(frontLight);
-
-    var bottomLight = new THREE.DirectionalLight(0xffffff, 0.4);
-    bottomLight.position.set(0, -3, 2);
-    scene.add(bottomLight);
-
-
-    try {
-      var pmrem = new THREE.PMREMGenerator(renderer);
-      var envScene = new THREE.Scene();
-      envScene.background = new THREE.Color(0x111111);
-      envScene.add(new THREE.AmbientLight(0x404040, 1));
-      var ep1 = new THREE.PointLight(0xffffff, 100, 0);
-      ep1.position.set(5, 5, 5);
-      envScene.add(ep1);
-      var ep2 = new THREE.PointLight(0x8888ff, 50, 0);
-      ep2.position.set(-5, 3, -5);
-      envScene.add(ep2);
-      var ep3 = new THREE.PointLight(0x39ff14, 30, 0);
-      ep3.position.set(0, -3, 5);
-      envScene.add(ep3);
-      scene.environment = pmrem.fromScene(envScene, 0.04).texture;
-      pmrem.dispose();
-    } catch (e) {
-    }
-
-    var texLoader = new THREE.TextureLoader();
+        var texLoader = new THREE.TextureLoader();
     var labelTex = texLoader.load(LABEL);
     labelTex.encoding = THREE.sRGBEncoding;
 
@@ -174,99 +109,52 @@
     });
     can.add(new THREE.Mesh(bodyGeo, bodyMat));
 
-    var metalMat = new THREE.MeshStandardMaterial({
-      color: 0xcccccc,
-      metalness: 0.95,
-      roughness: 0.15
+    var silverMat = new THREE.MeshStandardMaterial({
+      color: 0xdddddd,
+      metalness: 0.9,
+      roughness: 0.2,
+      envMapIntensity: 2.0
     });
 
-    var topGeo = new THREE.CylinderGeometry(0.85, 0.85, 0.04, 64);
-    var topMesh = new THREE.Mesh(topGeo, metalMat);
-    topMesh.position.y = 1.4;
+    var topGeo = new THREE.CylinderGeometry(0.87, 0.87, 0.08, 64);
+    var topMesh = new THREE.Mesh(topGeo, silverMat);
+    topMesh.position.y = 1.44;
     can.add(topMesh);
 
-    var rimGeo = new THREE.TorusGeometry(0.85, 0.025, 8, 64);
-    var rimMesh = new THREE.Mesh(rimGeo, metalMat);
+    var rimGeo = new THREE.TorusGeometry(0.87, 0.03, 12, 64);
+    var rimMesh = new THREE.Mesh(rimGeo, silverMat);
     rimMesh.rotation.x = Math.PI / 2;
-    rimMesh.position.y = 1.42;
+    rimMesh.position.y = 1.48;
     can.add(rimMesh);
 
-    var tabMat = new THREE.MeshStandardMaterial({
-      color: 0xbbbbbb,
-      metalness: 0.9,
-      roughness: 0.2
+    var tabMat2 = new THREE.MeshStandardMaterial({
+      color: 0xcccccc,
+      metalness: 0.85,
+      roughness: 0.25
     });
 
-    var tabGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.015, 16);
-    var tabMesh = new THREE.Mesh(tabGeo, tabMat);
-    tabMesh.position.set(0.15, 1.43, 0);
-    can.add(tabMesh);
+    var tabGeo2 = new THREE.CylinderGeometry(0.14, 0.14, 0.02, 16);
+    var tabMesh2 = new THREE.Mesh(tabGeo2, tabMat2);
+    tabMesh2.position.set(0.18, 1.5, 0);
+    can.add(tabMesh2);
 
-    var tabRingGeo = new THREE.TorusGeometry(0.08, 0.012, 8, 24);
-    var tabRingMesh = new THREE.Mesh(tabRingGeo, tabMat);
-    tabRingMesh.rotation.x = Math.PI / 2;
-    tabRingMesh.position.set(0.15, 1.44, 0);
-    can.add(tabRingMesh);
+    var tabRingGeo2 = new THREE.TorusGeometry(0.1, 0.015, 8, 24);
+    var tabRingMesh2 = new THREE.Mesh(tabRingGeo2, tabMat2);
+    tabRingMesh2.rotation.x = Math.PI / 2;
+    tabRingMesh2.position.set(0.18, 1.51, 0);
+    can.add(tabRingMesh2);
 
-    var botMat = new THREE.MeshStandardMaterial({
-      color: 0xaaaaaa,
-      metalness: 0.95,
-      roughness: 0.2
-    });
+    var botGeo2 = new THREE.CylinderGeometry(0.87, 0.84, 0.08, 64);
+    var botMesh2 = new THREE.Mesh(botGeo2, silverMat);
+    botMesh2.position.y = -1.44;
+    can.add(botMesh2);
 
-    var botGeo = new THREE.CylinderGeometry(0.85, 0.82, 0.04, 64);
-    var botMesh = new THREE.Mesh(botGeo, botMat);
-    botMesh.position.y = -1.4;
-    can.add(botMesh);
-
-    var indGeo = new THREE.SphereGeometry(0.6, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
-    var indMesh = new THREE.Mesh(indGeo, botMat);
-    indMesh.rotation.x = Math.PI;
-    indMesh.position.y = -1.38;
-    indMesh.scale.y = 0.15;
-    can.add(indMesh);
-
-    can.position.y = 0.1;
-    scene.add(can);
-
-    var mouseDown = false;
-    var speed = 0.008;
-    var target = 0.008;
-
-    renderer.domElement.addEventListener("mousedown", function() {
-      mouseDown = true;
-    });
-    renderer.domElement.addEventListener("mouseup", function() {
-      mouseDown = false;
-      target = 0.008;
-    });
-    renderer.domElement.addEventListener("mouseleave", function() {
-      mouseDown = false;
-      target = 0.008;
-    });
-    renderer.domElement.addEventListener("mousemove", function(e) {
-      if (mouseDown) {
-        var rect = renderer.domElement.getBoundingClientRect();
-        var x = (e.clientX - rect.left) / rect.width - 0.5;
-        target = x * 0.06;
-      }
-    });
-    renderer.domElement.addEventListener("touchstart", function() {
-      mouseDown = true;
-    }, { passive: true });
-    renderer.domElement.addEventListener("touchend", function() {
-      mouseDown = false;
-      target = 0.008;
-    });
-    renderer.domElement.addEventListener("touchmove", function(e) {
-      if (mouseDown && e.touches.length > 0) {
-        var rect = renderer.domElement.getBoundingClientRect();
-        var x = (e.touches[0].clientX - rect.left) / rect.width - 0.5;
-        target = x * 0.06;
-      }
-    }, { passive: true });
-
-    var ft = 0;
+    var indGeo2 = new THREE.SphereGeometry(0.6, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
+    var indMesh2 = new THREE.Mesh(indGeo2, silverMat);
+    indMesh2.rotation.x = Math.PI;
+    indMesh2.position.y = -1.4;
+    indMesh2.scale.y = 0.15;
+    can.add(indMesh2);
 
     function animate() {
       requestAnimationFrame(animate);
