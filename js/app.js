@@ -171,10 +171,38 @@ var products = [
       // or to all meshes if the user's model relies entirely on overrides.
       gltf.scene.traverse(function(child) {
         if (child.isMesh) {
-          // If building our own materials over the base GLB structure dynamically:
-          if(child.name.toLowerCase().includes('body') || child.name.toLowerCase().includes('label')){
-             child.material.map = labelTex;
-             child.material.needsUpdate = true;
+          // The sketchfab GLB is missing UV parameters (TEXCOORD_0).
+          // We must generate cylindrical UVs on the fly so the texture wraps!
+          if (!child.geometry.attributes.uv) {
+            var pos = child.geometry.attributes.position;
+            var uvs = new Float32Array(pos.count * 2);
+            child.geometry.computeBoundingBox();
+            var box = child.geometry.boundingBox;
+            var height = box.max.y - box.min.y;
+            for (var i = 0; i < pos.count; i++) {
+              var x = pos.getX(i);
+              var y = pos.getY(i);
+              var z = pos.getZ(i);
+              // Calculate cylindrical coordinates wrapped around Y axis
+              var u = (Math.atan2(x, z) / (2 * Math.PI)) + 0.5;
+              var v = (y - box.min.y) / height;
+              uvs[i * 2] = u;
+              uvs[i * 2 + 1] = v;
+            }
+            child.geometry.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+          }
+          
+          // Apply the label material only to the main cylindrical body.
+          // The body mesh in this GLB has ~39,000 vertices, tabs/rims have <5,000.
+          if (child.geometry.attributes.position.count > 10000) {
+            labelTex.flipY = false; // Important for procedurally generated GLTF UVs
+            child.material = new THREE.MeshStandardMaterial({
+              map: labelTex,
+              metalness: 0.3,
+              roughness: 0.35,
+              side: THREE.DoubleSide
+            });
+            child.material.needsUpdate = true;
           }
         }
       });
