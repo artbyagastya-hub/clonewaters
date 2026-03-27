@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.clonewaters.com/sitemap.xml
+
+# Block admin if you add it later
+Disallow: /admin.html
