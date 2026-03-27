@@ -94,11 +94,71 @@ var products = [
   }
 
   function initCan() {
-        var texLoader = new THREE.TextureLoader();
+    var container = document.getElementById("canCanvas");
+    if (!container) return;
+
+    var w = container.clientWidth;
+    var h = container.clientHeight;
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+    camera.position.z = 6;
+
+    var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(w, h);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    container.appendChild(renderer.domElement);
+
+    var ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    scene.add(ambientLight);
+    var dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    dirLight.position.set(5, 5, 5);
+    scene.add(dirLight);
+
+    var texLoader = new THREE.TextureLoader();
     var labelTex = texLoader.load(LABEL);
     labelTex.encoding = THREE.sRGBEncoding;
 
     var can = new THREE.Group();
+    scene.add(can);
+
+    var speed = 0;
+    var target = 0.01;
+    var ft = 0;
+
+    var isDragging = false;
+    var prevX = 0;
+
+    container.addEventListener("mousedown", function(e) {
+      isDragging = true;
+      prevX = e.clientX;
+    });
+    window.addEventListener("mouseup", function() {
+      isDragging = false;
+      target = 0.01;
+    });
+    window.addEventListener("mousemove", function(e) {
+      if (isDragging) {
+        var delta = e.clientX - prevX;
+        target = delta * 0.005;
+        prevX = e.clientX;
+      }
+    });
+    container.addEventListener("touchstart", function(e) {
+      isDragging = true;
+      prevX = e.touches[0].clientX;
+    });
+    window.addEventListener("touchend", function() {
+      isDragging = false;
+      target = 0.01;
+    });
+    window.addEventListener("touchmove", function(e) {
+      if (isDragging) {
+        var delta = e.touches[0].clientX - prevX;
+        target = delta * 0.005;
+        prevX = e.touches[0].clientX;
+      }
+    });
 
     var bodyGeo = new THREE.CylinderGeometry(0.85, 0.85, 2.8, 64, 1, true);
     var bodyMat = new THREE.MeshStandardMaterial({
