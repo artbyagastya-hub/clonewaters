@@ -89,18 +89,21 @@ function buildCan(url) {
   var c = document.getElementById("canCylinder");
   if (!c) return;
   c.innerHTML = "";
-  for (var i = 0; i < 24; i++) {
-    var a = (360 / 24) * i;
+  var count = 36;
+  var w = 22;
+  var r = 85;
+  for (var i = 0; i < count; i++) {
+    var a = (360 / count) * i;
     var p = document.createElement("div");
     p.className = "can-panel";
-    p.style.width = "28px";
-    p.style.transform = "rotateY(" + a + "deg) translateZ(110px)";
+    p.style.width = w + "px";
+    p.style.transform = "rotateY(" + a + "deg) translateZ(" + r + "px)";
     var bg = document.createElement("div");
     bg.className = "label-bg";
     if (url) {
       bg.style.backgroundImage = "url(" + url + ")";
-      bg.style.backgroundSize = "2400% 100%";
-      bg.style.backgroundPosition = ((i / 23) * 100) + "% 50%";
+      bg.style.backgroundSize = (count * 100) + "% 100%";
+      bg.style.backgroundPosition = ((i / (count - 1)) * 100) + "% 50%";
     } else {
       bg.style.background = "linear-gradient(" + (130 + a) + "deg, #0a0a2e, #1a0a3e, #0d2847, #0a3d2e)";
     }
@@ -117,6 +120,7 @@ function buildCan(url) {
     c.appendChild(p);
   }
 }
+
 
 buildCan(LABEL);
 
