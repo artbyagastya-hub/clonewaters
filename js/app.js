@@ -127,9 +127,9 @@
     backLight.position.set(0, 2, -4);
     scene.add(backLight);
 
-    var rimPt = new THREE.PointLight(0xffffff, 0.6, 10);
-    rimPt.position.set(-3, 0, 2);
-    scene.add(rimPt);
+    var rimLight = new THREE.PointLight(0xffffff, 0.6, 10);
+    rimLight.position.set(-3, 0, 2);
+    scene.add(rimLight);
 
     try {
       var pmrem = new THREE.PMREMGenerator(renderer);
@@ -338,19 +338,19 @@
       card.style.transitionDelay = (idx * 0.08) + "s";
 
       var html = "";
-      html += '<div class="rel-badge ' + bc + '"><span class="badge-dot-sm"></span>' + bt + '</div>';
-      html += '<div class="rel-card-can">' + ih + '</div>';
-      html += '<div class="rel-card-info">';
-      html += '<h3>' + p.name.toUpperCase() + '</h3>';
-      html += '<div class="rel-style">' + p.style + '</div>';
-      html += '<p class="rel-desc">' + p.desc + '</p>';
-      html += '<div class="rel-meta">';
-      html += '<span>' + p.abv + '% ABV</span>';
-      html += '<span>IBU ' + p.ibu + '</span>';
-      html += '<span>' + p.vol + 'ml</span>';
-      html += '</div>';
-      html += bb;
-      html += '</div>';
+      html = html + '<div class="rel-badge ' + bc + '"><span class="badge-dot-sm"></span>' + bt + '</div>';
+      html = html + '<div class="rel-card-can">' + ih + '</div>';
+      html = html + '<div class="rel-card-info">';
+      html = html + '<h3>' + p.name.toUpperCase() + '</h3>';
+      html = html + '<div class="rel-style">' + p.style + '</div>';
+      html = html + '<p class="rel-desc">' + p.desc + '</p>';
+      html = html + '<div class="rel-meta">';
+      html = html + '<span>' + p.abv + '% ABV</span>';
+      html = html + '<span>IBU ' + p.ibu + '</span>';
+      html = html + '<span>' + p.vol + 'ml</span>';
+      html = html + '</div>';
+      html = html + bb;
+      html = html + '</div>';
 
       card.innerHTML = html;
       grid.appendChild(card);
@@ -488,16 +488,16 @@
       r.className = "cart-item";
 
       var rh = "";
-      rh += '<div class="cart-item-info">';
-      rh += '<div class="cart-item-name">' + it.name + '</div>';
-      rh += '<div class="cart-item-price">' + it.price + 'K x ' + it.qty + ' = ' + itT + 'K</div>';
-      rh += '</div>';
-      rh += '<div class="cart-item-qty">';
-      rh += '<button class="qty-btn" data-qi="' + i + '" data-qd="-1">-</button>';
-      rh += '<span>' + it.qty + '</span>';
-      rh += '<button class="qty-btn" data-qi="' + i + '" data-qd="1">+</button>';
-      rh += '</div>';
-      rh += '<button class="cart-item-remove" data-ri="' + i + '">x</button>';
+      rh = rh + '<div class="cart-item-info">';
+      rh = rh + '<div class="cart-item-name">' + it.name + '</div>';
+      rh = rh + '<div class="cart-item-price">' + it.price + 'K x ' + it.qty + ' = ' + itT + 'K</div>';
+      rh = rh + '</div>';
+      rh = rh + '<div class="cart-item-qty">';
+      rh = rh + '<button class="qty-btn" data-qi="' + i + '" data-qd="-1">-</button>';
+      rh = rh + '<span>' + it.qty + '</span>';
+      rh = rh + '<button class="qty-btn" data-qi="' + i + '" data-qd="1">+</button>';
+      rh = rh + '</div>';
+      rh = rh + '<button class="cart-item-remove" data-ri="' + i + '">x</button>';
 
       r.innerHTML = rh;
       ie.appendChild(r);
@@ -558,7 +558,6 @@
     var ad = "";
     var di = "";
     var ci = "";
-
     if (nmEl) { nm = nmEl.value; }
     if (phEl) { ph = phEl.value; }
     if (adEl) { ad = adEl.value; }
@@ -567,14 +566,13 @@
 
     var sub = 0;
     var ih = "";
-
     for (var i = 0; i < cart.length; i++) {
       var t = cart[i].price * cart[i].qty;
       sub = sub + t;
-      ih += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem">';
-      ih += '<span>' + cart[i].name + ' x ' + cart[i].qty + '</span>';
-      ih += '<span>' + t + 'K</span>';
-      ih += '</div>';
+      ih = ih + '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem">';
+      ih = ih + '<span>' + cart[i].name + ' x ' + cart[i].qty + '</span>';
+      ih = ih + '<span>' + t + 'K</span>';
+      ih = ih + '</div>';
     }
 
     var ship = 50;
@@ -596,17 +594,17 @@
     }
 
     var sh = "";
-    sh += '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">';
-    sh += '<h4 style="font-size:.85rem;margin-bottom:.5rem;color:var(--neon)">Items</h4>';
-    sh += ih;
-    sh += '</div>';
-    sh += '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">';
-    sh += '<h4 style="font-size:.85rem;margin-bottom:.5rem;color:var(--neon)">Shipping To</h4>';
-    sh += '<div style="font-size:.82rem;color:var(--txt2);line-height:1.8">' + addr + '</div>';
-    sh += '</div>';
-    sh += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Subtotal</span><span>' + sub + 'K</span></div>';
-    sh += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Shipping</span><span>' + shipText + '</span></div>';
-    sh += '<div style="display:flex;justify-content:space-between;padding:.5rem 0;font-size:1rem;font-weight:700;border-top:1px solid var(--border);margin-top:.5rem"><span>Total</span><span style="color:var(--neon)">' + tot + 'K VND</span></div>';
+    sh = sh + '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">';
+    sh = sh + '<h4 style="font-size:.85rem;margin-bottom:.5rem;color:var(--neon)">Items</h4>';
+    sh = sh + ih;
+    sh = sh + '</div>';
+    sh = sh + '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">';
+    sh = sh + '<h4 style="font-size:.85rem;margin-bottom:.5rem;color:var(--neon)">Shipping To</h4>';
+    sh = sh + '<div style="font-size:.82rem;color:var(--txt2);line-height:1.8">' + addr + '</div>';
+    sh = sh + '</div>';
+    sh = sh + '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Subtotal</span><span>' + sub + 'K</span></div>';
+    sh = sh + '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Shipping</span><span>' + shipText + '</span></div>';
+    sh = sh + '<div style="display:flex;justify-content:space-between;padding:.5rem 0;font-size:1rem;font-weight:700;border-top:1px solid var(--border);margin-top:.5rem"><span>Total</span><span style="color:var(--neon)">' + tot + 'K VND</span></div>';
 
     el.innerHTML = sh;
   }
@@ -718,6 +716,7 @@
   document.getElementById("backToStep2").addEventListener("click", function() { goToStep(2); });
   document.getElementById("placeOrderBtn").addEventListener("click", placeOrder);
   document.getElementById("continueShopping").addEventListener("click", closeCheckout);
+  document.getElementById("browseBeersBtn").addEventListener("click", closeCheckout);
 
   var _fb = document.querySelectorAll(".filter-btn");
   for (var i = 0; i < _fb.length; i++) {
