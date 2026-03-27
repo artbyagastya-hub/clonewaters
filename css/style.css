@@ -250,8 +250,7 @@ footer{border-top:1px solid var(--border);padding:3rem 4rem;max-width:1400px;mar
 .footer-col a{font-size:.78rem;color:var(--txt3);margin-bottom:.5rem;transition:.3s;display:block}
 .footer-col a:hover{color:var(--neon)}
 .footer-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:.68rem;color:var(--txt3)}
-.age-badge{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .8rem;border:1px solid var(--border);border2rem}
-  .hero-actions{justify-content:center}
+.age-badge{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .8rem;border:1px solid var(--border);border-radius:100px;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
   .hero-stats{justify-content:center}
   .mem-wrap{grid-template-columns:1fr}
   .footer-inner{grid-template-columns:1fr 1fr}
