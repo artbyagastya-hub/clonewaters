@@ -1,13 +1,15 @@
-document.addEventListener("DOMContentLoaded", function() {
+(function() {
+"use strict";
 
 var LABEL = "img/teddy-hopper.png";
 var cart = [];
 
-var products = [];
-products.push({id:1,name:"Teddy Hopper",style:"Double IPA",abv:"7.7",ibu:"15",vol:"330",price:219,stock:342,soldOutAt:20,status:"current",desc:"Our debut release. Packed with Amarillo, Centennial, Chinook, Columbus and Simcoe hops.",accent:"g",img:LABEL});
-products.push({id:2,name:"Neon Lotus",style:"Fruited Sour",abv:"4.8",ibu:"8",vol:"330",price:199,stock:0,soldOutAt:0,status:"upcoming",desc:"Tart lychee and dragon fruit sour with a floral lotus finish.",accent:"p",img:""});
-products.push({id:3,name:"Midnight Pho",style:"Spiced Stout",abv:"6.8",ibu:"25",vol:"330",price:219,stock:0,soldOutAt:0,status:"upcoming",desc:"Rich chocolate stout brewed with star anise and cinnamon.",accent:"o",img:""});
-products.push({id:4,name:"Saigon Session",style:"Rice Lager",abv:"4.5",ibu:"12",vol:"330",price:179,stock:0,soldOutAt:0,status:"past",desc:"Clean, crisp rice lager brewed with jasmine rice.",accent:"c",img:""});
+var products = [
+  {id:1, name:"Teddy Hopper", style:"Double IPA", abv:"7.7", ibu:"15", vol:"330", price:219, stock:342, soldOutAt:20, status:"current", desc:"Our debut. Packed with Amarillo, Centennial, Chinook, Columbus and Simcoe hops.", accent:"g", img:LABEL},
+  {id:2, name:"Neon Lotus", style:"Fruited Sour", abv:"4.8", ibu:"8", vol:"330", price:199, stock:0, soldOutAt:0, status:"upcoming", desc:"Tart lychee and dragon fruit sour. Light and refreshing.", accent:"p", img:""},
+  {id:3, name:"Midnight Pho", style:"Spiced Stout", abv:"6.8", ibu:"25", vol:"330", price:219, stock:0, soldOutAt:0, status:"upcoming", desc:"Chocolate stout with star anise and cinnamon.", accent:"o", img:""},
+  {id:4, name:"Saigon Session", style:"Rice Lager", abv:"4.5", ibu:"12", vol:"330", price:179, stock:0, soldOutAt:0, status:"past", desc:"Clean crisp rice lager with jasmine rice.", accent:"c", img:""}
+];
 
 function enterSite() {
   var el = document.getElementById("ageGate");
@@ -82,26 +84,27 @@ function buildCan(url) {
   var c = document.getElementById("canCylinder");
   if (!c) return;
   c.innerHTML = "";
-  for (var i = 0; i < 24; i++) {
-    var a = (360 / 24) * i;
-    var p = document.createElement("div");
+  var i, a, p, bg, sh, el, er;
+  for (i = 0; i < 24; i++) {
+    a = (360 / 24) * i;
+    p = document.createElement("div");
     p.className = "can-panel";
     p.style.width = "28px";
     p.style.transform = "rotateY(" + a + "deg) translateZ(110px)";
-    var bg = document.createElement("div");
+    bg = document.createElement("div");
     bg.className = "label-bg";
     if (url) {
       bg.style.backgroundImage = "url(" + url + ")";
       bg.style.backgroundSize = "2400% 100%";
       bg.style.backgroundPosition = ((i / 23) * 100) + "% 50%";
     } else {
-      bg.style.background = "linear-gradient(" + (130 + a) + "deg, #0a0a2e, #1a0a3e, #0d2847, #0a3d2e, #0d2847, #1a0a3e, #0a0a2e)";
+      bg.style.background = "linear-gradient(" + (130 + a) + "deg, #0a0a2e, #1a0a3e, #0d2847, #0a3d2e)";
     }
-    var sh = document.createElement("div");
+    sh = document.createElement("div");
     sh.className = "shine";
-    var el = document.createElement("div");
+    el = document.createElement("div");
     el.className = "edge edge-l";
-    var er = document.createElement("div");
+    er = document.createElement("div");
     er.className = "edge edge-r";
     p.appendChild(bg);
     p.appendChild(sh);
@@ -118,25 +121,26 @@ function renderReleases(filter) {
   var grid = document.getElementById("relGrid");
   if (!grid) return;
   grid.innerHTML = "";
-  for (var idx = 0; idx < products.length; idx++) {
-    var p = products[idx];
+  var idx, p, bc, bt, bb, ih, gr, card;
+  for (idx = 0; idx < products.length; idx++) {
+    p = products[idx];
     if (filter !== "all" && p.status !== filter) continue;
-    var bc = p.status === "upcoming" ? "up" : p.status === "current" ? "cr" : "sd";
-    var bt = p.status === "upcoming" ? "Coming Soon" : p.status === "current" ? "Available Now" : "Sold Out";
-    var bb = "";
+    bc = p.status === "upcoming" ? "up" : p.status === "current" ? "cr" : "sd";
+    bt = p.status === "upcoming" ? "Coming Soon" : p.status === "current" ? "Available Now" : "Sold Out";
+    bb = "";
     if (p.status === "current") {
-      bb = '<button class="btn-buy" data-add="' + p.id + '">Add to Cart - ' + p.price + 'K VND</button>';
+      bb = '<button class="btn-buy" data-add="' + p.id + '">Add to Cart - ' + p.price + 'K</button>';
     } else if (p.status === "past") {
       bb = '<button class="btn-buy sold-out" disabled>Sold Out</button>';
     }
-    var ih = "";
+    ih = "";
     if (p.img) {
       ih = '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" width="200" height="350">';
     } else {
-      var gr = {g:"#0a3d2e,#0d2847,#0a0a2e",p:"#2a0a4e,#1a0a3e,#0d0a2e",o:"#2a1500,#1a0a0a,#0d0a0a",c:"#0a2a3e,#0a1a2e,#0a0a1e"};
+      gr = {g:"#0a3d2e,#0d2847,#0a0a2e", p:"#2a0a4e,#1a0a3e,#0d0a2e", o:"#2a1500,#1a0a0a,#0d0a0a", c:"#0a2a3e,#0a1a2e,#0a0a1e"};
       ih = '<div class="placeholder-can" style="background:linear-gradient(135deg,' + (gr[p.accent] || gr.g) + ');color:var(--neon)">' + p.name + '</div>';
     }
-    var card = document.createElement("article");
+    card = document.createElement("article");
     card.className = "rel-card reveal";
     card.setAttribute("data-accent", p.accent);
     card.setAttribute("data-status", p.status);
@@ -150,7 +154,8 @@ function renderReleases(filter) {
 
 function addToCart(id) {
   var p = null;
-  for (var i = 0; i < products.length; i++) { if (products[i].id === id) { p = products[i]; break; } }
+  var i;
+  for (i = 0; i < products.length; i++) { if (products[i].id === id) { p = products[i]; break; } }
   if (!p || p.stock <= 0) return;
   var f = null;
   for (var j = 0; j < cart.length; j++) { if (cart[j].id === id) { f = cart[j]; break; } }
@@ -158,7 +163,7 @@ function addToCart(id) {
     if (f.qty >= p.stock) { showToast("Max stock reached", "info"); return; }
     f.qty++;
   } else {
-    cart.push({id:p.id,name:p.name,price:p.price,qty:1});
+    cart.push({id:p.id, name:p.name, price:p.price, qty:1});
   }
   updateCartCount();
   showToast(p.name + " added!", "success");
@@ -181,12 +186,21 @@ function updateCartCount() {
 function bindAdd() {
   var btns = document.querySelectorAll("[data-add]");
   for (var i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", function() { addToCart(parseInt(this.getAttribute("data-add"))); });
+    btns[i].addEventListener("click", function() {
+      addToCart(parseInt(this.getAttribute("data-add")));
+    });
   }
 }
 
-function openCheckout() { renderCart(); document.getElementById("checkoutModal").classList.add("open"); goToStep(1); }
-function closeCheckout() { document.getElementById("checkoutModal").classList.remove("open"); }
+function openCheckout() {
+  renderCart();
+  document.getElementById("checkoutModal").classList.add("open");
+  goToStep(1);
+}
+
+function closeCheckout() {
+  document.getElementById("checkoutModal").classList.remove("open");
+}
 
 function goToStep(step) {
   var ss = document.querySelectorAll(".checkout-step");
@@ -206,16 +220,21 @@ function renderCart() {
   var ee = document.getElementById("cartEmpty");
   var ce = document.getElementById("cartContent");
   if (!ie) return;
-  if (cart.length === 0) { ee.style.display = "block"; ce.style.display = "none"; return; }
+  if (cart.length === 0) {
+    ee.style.display = "block";
+    ce.style.display = "none";
+    return;
+  }
   ee.style.display = "none";
   ce.style.display = "block";
   ie.innerHTML = "";
   var sub = 0;
-  for (var i = 0; i < cart.length; i++) {
-    var it = cart[i];
-    var itT = it.price * it.qty;
+  var i, it, itT, r;
+  for (i = 0; i < cart.length; i++) {
+    it = cart[i];
+    itT = it.price * it.qty;
     sub += itT;
-    var r = document.createElement("div");
+    r = document.createElement("div");
     r.className = "cart-item";
     r.innerHTML = '<div class="cart-item-info"><div class="cart-item-name">' + it.name + '</div><div class="cart-item-price">' + it.price + 'K x ' + it.qty + ' = ' + itT + 'K</div></div><div class="cart-item-qty"><button class="qty-btn" data-qi="' + i + '" data-qd="-1">-</button><span>' + it.qty + '</span><button class="qty-btn" data-qi="' + i + '" data-qd="1">+</button></div><button class="cart-item-remove" data-ri="' + i + '">x</button>';
     ie.appendChild(r);
@@ -230,14 +249,16 @@ function renderCart() {
       var idx = parseInt(this.getAttribute("data-qi"));
       cart[idx].qty += parseInt(this.getAttribute("data-qd"));
       if (cart[idx].qty <= 0) cart.splice(idx, 1);
-      updateCartCount(); renderCart();
+      updateCartCount();
+      renderCart();
     });
   }
   var rb = ie.querySelectorAll(".cart-item-remove");
   for (var r2 = 0; r2 < rb.length; r2++) {
     rb[r2].addEventListener("click", function() {
       cart.splice(parseInt(this.getAttribute("data-ri")), 1);
-      updateCartCount(); renderCart();
+      updateCartCount();
+      renderCart();
     });
   }
 }
@@ -252,92 +273,91 @@ function renderSummary() {
   var ci = document.getElementById("shipCity") ? document.getElementById("shipCity").value : "";
   var sub = 0;
   var ih = "";
-  for (var i = 0; i < cart.length; i++) {
-    var t = cart[i].price * cart[i].qty;
+  var i, t;
+  for (i = 0; i < cart.length; i++) {
+    t = cart[i].price * cart[i].qty;
     sub += t;
-    ih += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>' + cart[i].name + ' x ' + cart[i].qty + '</span><span>' + t + 'K</span></div>';
+    ih += '<div style="display:flex;justify:.82rem"><span>' + cart[i].name-content:space-between;padding:.3rem 0;font-size + ' x ' + cart[i].qty + '</span><span>' + t + 'K</span></div>';
   }
   var ship = sub >= 1000 ? 0 : 50;
   var tot = sub + ship;
-  el.innerHTML = '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)"><h4 style="font-size:.85rem;margin-bottom:.5rem;color:var(--neon)">Items</h4>' + ih + '</div><div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)"><h4 style="font-size:.85rem;margin-bottom:.5rem;color:var(--neon)">Shipping To</h4><div style="font-size:.82rem;color:var(--txt2);line-height:1.8">' + (nm || "-") + '<br>' + ph + '<br>' + ad + (di ? ", " + di : "") + (ci ? ", " + ci : "") + '</div></div><div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Subtotal</span><span>' + sub + 'K</span></div><div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Shipping</span><span>' + (ship === 0 ? "FREE" : ship + "K") + '</span></div><div style="display:flex;justify-content:space-between;padding:.5rem 0;font-size:1rem;font-weight:700;border-top:1px solid var(--border);margin-top:.5rem"><span>Total</span><span style="color:var(--neon)">' + tot + 'K VND</span></div>';
+  el.innerHTML = '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)"><h4 style="font-size:.85rem;margin-bottom:.5rem;color:var(--neon)">Items</h4>' + ih + '</div><div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)"><h4 style="font-size:.85rem;margin-bottom:.5rem;color:var(--neon)">Shipping</h4><div style="font-size:.82rem;color:var(--txt2);line-height:1.8">' + (nm || "-") + '<br>' + ph + '<br>' + ad + (di ? ", " + di : "") + (ci ? ", " + ci : "") + '</div></div><div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Subtotal</span><span>' + sub + 'K</span></div><div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Shipping</span><span>' + (ship === 0 ? "FREE" : ship + "K") + '</span></div><div style="display:flex;justify-content:space-between;padding:.5rem 0;font-size:1rem;font-weight:700;border-top:1px solid var(--border);margin-top:.5rem"><span>Total</span><span style="color:var(--neon)">' + tot + 'K VND</span></div>';
 }
 
 function placeOrder() {
-    var nm = document.getElementById("shipName") ? document.getElementById("shipName").value : "";
-    var ph = document.getElementById("shipPhone") ? document.getElementById("shipPhone").value : "";
-    var ad = document.getElementById("shipAddress") ? document.getElementById("shipAddress").value : "";
-    if (!nm || !ph || !ad) { showToast("Fill all fields", "error"); return; }
-    var oid = "CW-" + Math.floor(1000 + Math.random() * 9000);
-    document.getElementById("orderIdDisplay").textContent = "#" + oid;
-    console.log("ORDER:", oid, nm, cart);
-    goToStep(4);
-    cart = [];
-    updateCartCount();
+  var nm = document.getElementById("shipName") ? document.getElementById("shipName").value : "";
+  var ph = document.getElementById("shipPhone") ? document.getElementById("shipPhone").value : "";
+  var ad = document.getElementById("shipAddress") ? document.getElementById("shipAddress").value : "";
+  if (!nm || !ph || !ad) { showToast("Fill all fields", "error"); return; }
+  var oid = "CW-" + Math.floor(1000 + Math.random() * 9000);
+  document.getElementById("orderIdDisplay").textContent = "#" + oid;
+  goToStep(4);
+  cart = [];
+  updateCartCount();
 }
 
 function showToast(msg, type) {
-    var c = document.getElementById("toastContainer");
-    if (!c) return;
-    var t = document.createElement("div");
-    var bg = type === "success" ? "#39ff14" : type === "error" ? "#ff3b3b" : "#00d4ff";
-    t.style.cssText = "padding:.8rem 1.2rem;background:#111;border:1px solid #2a2a38;border-radius:10px;font-size:.82rem;color:#f0f0f5;box-shadow:0 10px 30px rgba(0,0,0,.4);margin-bottom:.5rem;transition:all .3s;border-left:3px solid " + bg + ";max-width:300px";
-    t.textContent = msg;
-    c.appendChild(t);
-    setTimeout(function() { t.style.opacity = "0"; t.style.transform = "translateX(30px)"; setTimeout(function() { t.remove(); }, 300); }, 3000);
+  var c = document.getElementById("toastContainer");
+  if (!c) return;
+  var t = document.createElement("div");
+  var clr = type === "success" ? "#39ff14" : type === "error" ? "#ff3b3b" : "#00d4ff";
+  t.style.cssText = "padding:.8rem 1.2rem;background:#111;border:1px solid #2a2a38;border-radius:10px;font-size:.82rem;color:#f0f0f5;box-shadow:0 10px 30px rgba(0,0,0,.4);margin-bottom:.5rem;transition:all .3s;border-left:3px solid " + clr + ";max-width:300px";
+  t.textContent = msg;
+  c.appendChild(t);
+  setTimeout t.remove(); }, 300); }, 3000);
 }
 
 function observeReveal() {
-    var els = document.querySelectorAll(".reveal");
-    if (!("IntersectionObserver" in window)) {
-        for (var i = 0; i < els.length; i++) els[i].classList.add("visible");
-        return;
+  var els = document.querySelectorAll(".reveal");
+  if (!("IntersectionObserver" in window)) {
+    for (var i = 0; i < els.length; i++) els[i].classList.add("visible");
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) entries.style.transform = "translateX(30px)";(function() { t.style.opacity = "0"; t setTimeout(function() {[i].target.classList.add("visible");
     }
-    var obs = new IntersectionObserver(function(entries) {
-        for (var i = 0; i < entries.length; i++) {
-            if (entries[i].isIntersecting) entries[i].target.classList.add("visible");
-        }
-    }, { threshold: 0.1 });
-    for (var j = 0; j < els.length; j++) obs.observe(els[j]);
+  }, { threshold: 0.1 });
+  for (var j = 0; j < els.length; j++) obs.observe(els[j]);
 }
 
 var ca = document.querySelector(".hero-can-area");
 if (ca) {
-    ca.addEventListener("mousemove", function(e) {
-        var r = ca.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        var cf = document.getElementById("canFloat");
-        if (cf) cf.style.transform = "translateY(-9px) rotateY(" + (x * 20) + "deg) rotateX(" + (-y * 12) + "deg)";
-    });
-    ca.addEventListener("mouseleave", function() {
-        var cf = document.getElementById("canFloat");
-        if (cf) cf.style.transform = "";
-    });
+  ca.addEventListener("mousemove", function(e) {
+    var r = ca.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width - 0.5;
+    var y = (e.clientY - r.top) / r.height - 0.5;
+    var cf = document.getElementById("canFloat");
+    if (cf) cf.style.transform = "translateY(-9px) rotateY(" + (x * 20) + "deg) rotateX(" + (-y * 12) + "deg)";
+  });
+  ca.addEventListener("mouseleave", function() {
+    var cf = document.getElementById("canFloat");
+    if (cf) cf.style.transform = "";
+  });
 }
 
-/* SMOOTH SCROLL */
 var sLinks = document.querySelectorAll('a[href^="#"]');
 for (var si = 0; si < sLinks.length; si++) {
-    sLinks[si].addEventListener("click", function(e) {
-        var h = this.getAttribute("href");
-        if (h && h.length > 1) { e.preventDefault(); var t = document.querySelector(h); if (t) t.scrollIntoView({ behavior: "smooth", block: "start" }); }
-    });
+  sLinks[si].addEventListener("click", function(e) {
+    var h = this.getAttribute("href");
+    if (h && h.length > 1) { e.preventDefault(); var t = document.querySelector(h); if (t) t.scrollIntoView({ behavior: "smooth", block: "start" }); }
+  });
 }
 
 /* =============================================
-   ALL EVENT BINDINGS - NOW SAFE INSIDE DOM READY
+   EVENT BINDINGS
    ============================================= */
 document.getElementById("ageYes").addEventListener("click", enterSite);
 document.getElementById("ageNo").addEventListener("click", leaveSite);
 
 var _lb = document.querySelectorAll(".lang-btn");
 for (var i = 0; i < _lb.length; i++) {
-    _lb[i].addEventListener("click", function() { setLang(this.getAttribute("data-lang")); });
+  _lb[i].addEventListener("click", function() { setLang(this.getAttribute("data-lang")); });
 }
 
 var _at = document.querySelectorAll(".auth-tab");
 for (var i = 0; i < _at.length; i++) {
-    _at[i].addEventListener("click", function() { switchTab(this.getAttribute("data-tab")); });
+  _at[i].addEventListener("click", function() { switchTab(this.getAttribute("data-tab")); });
 }
 
 document.getElementById("loginForm").addEventListener("submit", doLogin);
@@ -354,34 +374,33 @@ document.getElementById("continueShopping").addEventListener("click", closeCheck
 
 var _fb = document.querySelectorAll(".filter-btn");
 for (var i = 0; i < _fb.length; i++) {
-    _fb[i].addEventListener("click", function() {
-        var all = document.querySelectorAll(".filter-btn");
-        for (var j = 0; j < all.length; j++) all[j].classList.remove("active");
-        this.classList.add("active");
-        renderReleases(this.getAttribute("data-filter"));
-    });
+  _fb[i].addEventListener("click", function() {
+    var all = document.querySelectorAll(".filter-btn");
+    for (var j = 0; j < all.length; j++) all[j].classList.remove("active");
+    this.classList.add("active");
+    renderReleases(this.getAttribute("data-filter"));
+  });
 }
 
 var _cnb = document.querySelectorAll(".checkout-nav-btn");
 for (var i = 0; i < _cnb.length; i++) {
-    _cnb[i].addEventListener("click", function() { goToStep(parseInt(this.getAttribute("data-step"))); });
+  _cnb[i].addEventListener("click", function() { goToStep(parseInt(this.getAttribute("data-step"))); });
 }
 
-var _po = document.querySelectorAll(".payment-option");
-for (var i = 0; i < _po.length; i++) {
-    _po[i].addEventListener("click", function() {
-        var all = document.querySelectorAll(".payment-option");
-        for (var j = 0; j < all.length; j++) all[j].classList.remove("active");
-        this.classList.add("active");
-    });
+var _popts = document.querySelectorAll(".payment-option");
+for (var i = 0; i < _popts.length; i++) {
+  _popts[i].addEventListener("click", function() {
+    var all = document.querySelectorAll(".payment-option");
+    for (var j = 0; j < all.length; j++) all[j].classList.remove("active");
+    this.classList.add("active");
+  });
 }
 
 document.getElementById("checkoutModal").addEventListener("click", function(e) {
-    if (e.target === this) closeCheckout();
+  if (e.target === this) closeCheckout();
 });
 
-/* INIT */
 renderReleases();
 observeReveal();
 
-}); // end DOMContentLoaded
+})();
