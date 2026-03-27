@@ -13,7 +13,9 @@
 
   function enterSite() {
     var el = document.getElementById("ageGate");
-    if (el) el.classList.add("hidden");
+    if (el) {
+      el.classList.add("hidden");
+    }
     localStorage.setItem("cw_age", "1");
   }
 
@@ -23,7 +25,9 @@
 
   if (localStorage.getItem("cw_age") === "1") {
     var ae = document.getElementById("ageGate");
-    if (ae) ae.classList.add("hidden");
+    if (ae) {
+      ae.classList.add("hidden");
+    }
   }
 
   function setLang(lang) {
@@ -86,8 +90,12 @@
 
   function initCan() {
     var container = document.getElementById("canCanvas");
-    if (!container) return;
-    if (typeof THREE === "undefined") return;
+    if (!container) {
+      return;
+    }
+    if (typeof THREE === "undefined") {
+      return;
+    }
 
     var w = container.clientWidth;
     var h = container.clientHeight;
@@ -107,21 +115,21 @@
 
     scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 
-    var key = new THREE.DirectionalLight(0xffffff, 1.0);
-    key.position.set(3, 4, 5);
-    scene.add(key);
+    var keyLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    keyLight.position.set(3, 4, 5);
+    scene.add(keyLight);
 
-    var fill = new THREE.DirectionalLight(0x8888ff, 0.4);
-    fill.position.set(-3, 2, 3);
-    scene.add(fill);
+    var fillLight = new THREE.DirectionalLight(0x8888ff, 0.4);
+    fillLight.position.set(-3, 2, 3);
+    scene.add(fillLight);
 
-    var back = new THREE.DirectionalLight(0x39ff14, 0.3);
-    back.position.set(0, 2, -4);
-    scene.add(back);
+    var backLight = new THREE.DirectionalLight(0x39ff14, 0.3);
+    backLight.position.set(0, 2, -4);
+    scene.add(backLight);
 
-    var rim = new THREE.PointLight(0xffffff, 0.6, 10);
-    rim.position.set(-3, 0, 2);
-    scene.add(rim);
+    var rimPt = new THREE.PointLight(0xffffff, 0.6, 10);
+    rimPt.position.set(-3, 0, 2);
+    scene.add(rimPt);
 
     try {
       var pmrem = new THREE.PMREMGenerator(renderer);
@@ -164,9 +172,9 @@
     });
 
     var topGeo = new THREE.CylinderGeometry(0.85, 0.85, 0.04, 64);
-    var top = new THREE.Mesh(topGeo, metalMat);
-    top.position.y = 1.4;
-    can.add(top);
+    var topMesh = new THREE.Mesh(topGeo, metalMat);
+    topMesh.position.y = 1.4;
+    can.add(topMesh);
 
     var rimGeo = new THREE.TorusGeometry(0.85, 0.025, 8, 64);
     var rimMesh = new THREE.Mesh(rimGeo, metalMat);
@@ -181,15 +189,15 @@
     });
 
     var tabGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.015, 16);
-    var tab = new THREE.Mesh(tabGeo, tabMat);
-    tab.position.set(0.15, 1.43, 0);
-    can.add(tab);
+    var tabMesh = new THREE.Mesh(tabGeo, tabMat);
+    tabMesh.position.set(0.15, 1.43, 0);
+    can.add(tabMesh);
 
     var tabRingGeo = new THREE.TorusGeometry(0.08, 0.012, 8, 24);
-    var tabRing = new THREE.Mesh(tabRingGeo, tabMat);
-    tabRing.rotation.x = Math.PI / 2;
-    tabRing.position.set(0.15, 1.44, 0);
-    can.add(tabRing);
+    var tabRingMesh = new THREE.Mesh(tabRingGeo, tabMat);
+    tabRingMesh.rotation.x = Math.PI / 2;
+    tabRingMesh.position.set(0.15, 1.44, 0);
+    can.add(tabRingMesh);
 
     var botMat = new THREE.MeshStandardMaterial({
       color: 0xaaaaaa,
@@ -198,16 +206,16 @@
     });
 
     var botGeo = new THREE.CylinderGeometry(0.85, 0.82, 0.04, 64);
-    var bot = new THREE.Mesh(botGeo, botMat);
-    bot.position.y = -1.4;
-    can.add(bot);
+    var botMesh = new THREE.Mesh(botGeo, botMat);
+    botMesh.position.y = -1.4;
+    can.add(botMesh);
 
     var indGeo = new THREE.SphereGeometry(0.6, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
-    var ind = new THREE.Mesh(indGeo, botMat);
-    ind.rotation.x = Math.PI;
-    ind.position.y = -1.38;
-    ind.scale.y = 0.15;
-    can.add(ind);
+    var indMesh = new THREE.Mesh(indGeo, botMat);
+    indMesh.rotation.x = Math.PI;
+    indMesh.position.y = -1.38;
+    indMesh.scale.y = 0.15;
+    can.add(indMesh);
 
     can.position.y = 0.1;
     scene.add(can);
@@ -253,9 +261,9 @@
 
     function animate() {
       requestAnimationFrame(animate);
-      speed += (target - speed) * 0.05;
-      can.rotation.y += speed;
-      ft += 0.015;
+      speed = speed + (target - speed) * 0.05;
+      can.rotation.y = can.rotation.y + speed;
+      ft = ft + 0.015;
       can.position.y = 0.1 + Math.sin(ft) * 0.08;
       can.rotation.x = Math.sin(ft * 0.7) * 0.03;
       can.rotation.z = Math.cos(ft * 0.5) * 0.02;
@@ -273,20 +281,27 @@
   }
 
   function renderReleases(filter) {
-    filter = filter || "all";
+    if (!filter) {
+      filter = "all";
+    }
     var grid = document.getElementById("relGrid");
-    if (!grid) return;
+    if (!grid) {
+      return;
+    }
     grid.innerHTML = "";
     for (var idx = 0; idx < products.length; idx++) {
       var p = products[idx];
-      if (filter !== "all" && p.status !== filter) continue;
+      if (filter !== "all" && p.status !== filter) {
+        continue;
+      }
 
       var bc = "sd";
       var bt = "Sold Out";
       if (p.status === "upcoming") {
         bc = "up";
         bt = "Coming Soon";
-      } else if (p.status === "current") {
+      }
+      if (p.status === "current") {
         bc = "cr";
         bt = "Available Now";
       }
@@ -294,7 +309,8 @@
       var bb = "";
       if (p.status === "current") {
         bb = '<button class="btn-buy" data-add="' + p.id + '">Add to Cart - ' + p.price + 'K</button>';
-      } else if (p.status === "past") {
+      }
+      if (p.status === "past") {
         bb = '<button class="btn-buy sold-out" disabled>Sold Out</button>';
       }
 
@@ -302,13 +318,16 @@
       if (p.img) {
         ih = '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" width="200" height="350">';
       } else {
-        var gr = {
-          g: "#0a3d2e,#0d2847,#0a0a2e",
-          p: "#2a0a4e,#1a0a3e,#0d0a2e",
-          o: "#2a1500,#1a0a0a,#0d0a0a",
-          c: "#0a2a3e,#0a1a2e,#0a0a1e"
-        };
-        var gc = gr[p.accent] || gr.g;
+        var gc = "#0a3d2e,#0d2847,#0a0a2e";
+        if (p.accent === "p") {
+          gc = "#2a0a4e,#1a0a3e,#0d0a2e";
+        }
+        if (p.accent === "o") {
+          gc = "#2a1500,#1a0a0a,#0d0a0a";
+        }
+        if (p.accent === "c") {
+          gc = "#0a2a3e,#0a1a2e,#0a0a1e";
+        }
         ih = '<div class="placeholder-can" style="background:linear-gradient(135deg,' + gc + ');color:var(--neon)">' + p.name + '</div>';
       }
 
@@ -348,7 +367,12 @@
         break;
       }
     }
-    if (!p || p.stock <= 0) return;
+    if (!p) {
+      return;
+    }
+    if (p.stock <= 0) {
+      return;
+    }
 
     var f = null;
     for (var j = 0; j < cart.length; j++) {
@@ -388,7 +412,9 @@
       c = c + cart[i].qty;
     }
     var el = document.getElementById("cartCount");
-    if (el) el.textContent = c;
+    if (el) {
+      el.textContent = c;
+    }
   }
 
   function bindAdd() {
@@ -421,7 +447,9 @@
       nb[j].classList.remove("active");
     }
     var ts = document.getElementById("step" + step);
-    if (ts) ts.classList.add("active");
+    if (ts) {
+      ts.classList.add("active");
+    }
     for (var k = 0; k < nb.length; k++) {
       if (nb[k].getAttribute("data-step") === String(step)) {
         nb[k].classList.add("active");
@@ -436,7 +464,9 @@
     var ie = document.getElementById("cartItems");
     var ee = document.getElementById("cartEmpty");
     var ce = document.getElementById("cartContent");
-    if (!ie) return;
+    if (!ie) {
+      return;
+    }
 
     if (cart.length === 0) {
       ee.style.display = "block";
@@ -473,9 +503,17 @@
       ie.appendChild(r);
     }
 
-    var ship = sub >= 1000 ? 0 : 50;
+    var ship = 50;
+    if (sub >= 1000) {
+      ship = 0;
+    }
+    var shipText = ship + "K VND";
+    if (ship === 0) {
+      shipText = "FREE";
+    }
+
     document.getElementById("cartSubtotal").textContent = sub + "K VND";
-    document.getElementById("cartShipping").textContent = ship === 0 ? "FREE" : ship + "K VND";
+    document.getElementById("cartShipping").textContent = shipText;
     document.getElementById("cartTotal").textContent = (sub + ship) + "K VND";
 
     var qb = ie.querySelectorAll(".qty-btn");
@@ -490,7 +528,10 @@
         updateCartCount();
         renderCart();
       });
-       for (var r2 = 0; r2 < rb.length; r2++) {
+    }
+
+    var rb = ie.querySelectorAll(".cart-item-remove");
+    for (var r2 = 0; r2 < rb.length; r2++) {
       rb[r2].addEventListener("click", function() {
         var idx = parseInt(this.getAttribute("data-ri"));
         cart.splice(idx, 1);
@@ -502,16 +543,27 @@
 
   function renderSummary() {
     var el = document.getElementById("orderSummary");
-    if (!el) return;
+    if (!el) {
+      return;
+    }
 
-    var nm = document.getElementById("shipName") ? document.getElementById("shipName").value : "";
-    var ph = document.getElementById("shipPhone") ? document.getElementById("shipPhone").value : "";
-    var ad = document.getElementById("shipAddress") }
+    var nmEl = document.getElementById("shipName");
+    var phEl = document.getElementById("shipPhone");
+    var adEl = document.getElementById("shipAddress");
+    var diEl = document.getElementById("shipDistrict");
+    var ciEl = document.getElementById("shipCity");
 
-    var rb = ie.querySelectorAll(".cart-item-remove");
- ? document.getElementById("shipAddress").value : "";
-    var di = document.getElementById("shipDistrict") ? document.getElementById("shipDistrict").value : "";
-    var ci = document.getElementById("shipCity") ? document.getElementById("shipCity").value : "";
+    var nm = "";
+    var ph = "";
+    var ad = "";
+    var di = "";
+    var ci = "";
+
+    if (nmEl) { nm = nmEl.value; }
+    if (phEl) { ph = phEl.value; }
+    if (adEl) { ad = adEl.value; }
+    if (diEl) { di = diEl.value; }
+    if (ciEl) { ci = ciEl.value; }
 
     var sub = 0;
     var ih = "";
@@ -525,34 +577,47 @@
       ih += '</div>';
     }
 
-    var ship = sub >= 1000 ? 0 : 50;
+    var ship = 50;
+    if (sub >= 1000) {
+      ship = 0;
+    }
+    var shipText = ship + "K";
+    if (ship === 0) {
+      shipText = "FREE";
+    }
+
     var tot = sub + ship;
+    var addr = nm + "<br>" + ph + "<br>" + ad;
+    if (di) {
+      addr = addr + ", " + di;
+    }
+    if (ci) {
+      addr = addr + ", " + ci;
+    }
 
     var sh = "";
     sh += '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">';
     sh += '<h4 style="font-size:.85rem;margin-bottom:.5rem;color:var(--neon)">Items</h4>';
     sh += ih;
     sh += '</div>';
-
     sh += '<div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)">';
     sh += '<h4 style="font-size:.85rem;margin-bottom:.5rem;color:var(--neon)">Shipping To</h4>';
-    sh += '<div style="font-size:.82rem;color:var(--txt2);line-height:1.8">';
-    sh += (nm || "-") + '<br>' + ph + '<br>' + ad;
-    if (di) sh += ', ' + di;
-    if (ci) sh += ', ' + ci;
-    sh += '</div></div>';
-
+    sh += '<div style="font-size:.82rem;color:var(--txt2);line-height:1.8">' + addr + '</div>';
+    sh += '</div>';
     sh += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Subtotal</span><span>' + sub + 'K</span></div>';
-    sh += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Shipping</span><span>' + (ship === 0 ? "FREE" : ship + "K") + '</span></div>';
+    sh += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.82rem"><span>Shipping</span><span>' + shipText + '</span></div>';
     sh += '<div style="display:flex;justify-content:space-between;padding:.5rem 0;font-size:1rem;font-weight:700;border-top:1px solid var(--border);margin-top:.5rem"><span>Total</span><span style="color:var(--neon)">' + tot + 'K VND</span></div>';
 
     el.innerHTML = sh;
   }
 
   function placeOrder() {
-    var nm = document.getElementById("shipName") ? document.getElementById("shipName").value : "";
-    var ph = document.getElementById("shipPhone") ? document.getElementById("shipPhone").value : "";
-    var ad = document.getElementById("shipAddress") ? document.getElementById("shipAddress").value : "";
+    var nmEl = document.getElementById("shipName");
+    var phEl = document.getElementById("shipPhone");
+    var adEl = document.getElementById("shipAddress");
+    var nm = nmEl ? nmEl.value : "";
+    var ph = phEl ? phEl.value : "";
+    var ad = adEl ? adEl.value : "";
     if (!nm || !ph || !ad) {
       showToast("Fill all fields", "error");
       return;
@@ -566,11 +631,17 @@
 
   function showToast(msg, type) {
     var c = document.getElementById("toastContainer");
-    if (!c) return;
+    if (!c) {
+      return;
+    }
     var t = document.createElement("div");
     var clr = "#00d4ff";
-    if (type === "success") clr = "#39ff14";
-    if (type === "error") clr = "#ff3b3b";
+    if (type === "success") {
+      clr = "#39ff14";
+    }
+    if (type === "error") {
+      clr = "#ff3b3b";
+    }
     t.style.cssText = "padding:.8rem 1.2rem;background:#111;border:1px solid #2a2a38;border-radius:10px;font-size:.82rem;color:#f0f0f5;box-shadow:0 10px 30px rgba(0,0,0,.4);margin-bottom:.5rem;transition:all .3s;border-left:3px solid " + clr + ";max-width:300px";
     t.textContent = msg;
     c.appendChild(t);
@@ -607,11 +678,13 @@
   for (var si = 0; si < sLinks.length; si++) {
     sLinks[si].addEventListener("click", function(e) {
       var h = this.getAttribute("href");
-      if (h && h.length > 1) {
-        e.preventDefault();
-        var tgt = document.querySelector(h);
-        if (tgt) {
-          tgt.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (h) {
+        if (h.length > 1) {
+          e.preventDefault();
+          var tgt = document.querySelector(h);
+          if (tgt) {
+            tgt.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
         }
       }
     });
