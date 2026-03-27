@@ -11,7 +11,6 @@ var products = [
   {id:4, name:"Saigon Session", style:"Rice Lager", abv:"4.5", ibu:"12", vol:"330", price:179, stock:0, soldOutAt:0, status:"past", desc:"Clean crisp rice lager with jasmine rice.", accent:"c", img:""}
 ];
 
-/* ---- AGE GATE ---- */
 function enterSite() {
   var el = document.getElementById("ageGate");
   if (el) el.classList.add("hidden");
@@ -27,21 +26,14 @@ if (localStorage.getItem("cw_age") === "1") {
   if (ae) ae.classList.add("hidden");
 }
 
-/* ---- LANGUAGE ---- */
 function setLang(lang) {
   var btns = document.querySelectorAll(".lang-btn");
   for (var i = 0; i < btns.length; i++) {
     btns[i].classList.remove("active");
     if (btns[i].getAttribute("data-lang") === lang) btns[i].classList.add("active");
   }
-  var els = document.querySelectorAll("[data-" + lang + "]");
-  for (var j = 0; j < els.length; j++) {
-    var v = els[j].getAttribute("data-" + lang);
-    if (v) els[j].innerHTML = v;
-  }
 }
 
-/* ---- NAV SCROLL ---- */
 window.addEventListener("scroll", function() {
   var n = document.getElementById("navbar");
   if (n) {
@@ -50,7 +42,6 @@ window.addEventListener("scroll", function() {
   }
 });
 
-/* ---- AUTH ---- */
 function switchTab(tab) {
   var tabs = document.querySelectorAll(".auth-tab");
   var forms = document.querySelectorAll(".auth-form");
@@ -84,10 +75,6 @@ function doLogout() {
   switchTab("login");
 }
 
-
-
-
-/* ---- RELEASES ---- */
 function renderReleases(filter) {
   filter = filter || "all";
   var grid = document.getElementById("relGrid");
@@ -108,7 +95,7 @@ function renderReleases(filter) {
     if (p.img) {
       ih = '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" width="200" height="350">';
     } else {
-      var gr = {g:"#0a3d2e,#0d2847,#0a0a2e", p:"#2a0a4e,#1a0a3e,#0d0a2e", o:"#2a1500,#1a0a0a,#0d0a0a", c:"#0a2a3e,#0a1a2e,#0a0a1e"};
+      var gr = {g:"#0a3d2e,#0d2847,#0a0a2e",p:"#2a0a4e,#1a0a3e,#0d0a2e",o:"#2a1500,#1a0a0a,#0d0a0a",c:"#0a2a3e,#0a1a2e,#0a0a1e"};
       ih = '<div class="placeholder-can" style="background:linear-gradient(135deg,' + (gr[p.accent] || gr.g) + ');color:var(--neon)">' + p.name + '</div>';
     }
     var card = document.createElement("article");
@@ -123,7 +110,6 @@ function renderReleases(filter) {
   bindAdd();
 }
 
-/* ---- CART ---- */
 function addToCart(id) {
   var p = null;
   for (var i = 0; i < products.length; i++) { if (products[i].id === id) { p = products[i]; break; } }
@@ -163,7 +149,6 @@ function bindAdd() {
   }
 }
 
-/* ---- CHECKOUT ---- */
 function openCheckout() {
   renderCart();
   document.getElementById("checkoutModal").classList.add("open");
@@ -266,7 +251,6 @@ function placeOrder() {
   updateCartCount();
 }
 
-/* ---- TOAST ---- */
 function showToast(msg, type) {
   var c = document.getElementById("toastContainer");
   if (!c) return;
@@ -282,7 +266,6 @@ function showToast(msg, type) {
   }, 3000);
 }
 
-/* ---- SCROLL REVEAL ---- */
 function observeReveal() {
   var els = document.querySelectorAll(".reveal");
   if (!("IntersectionObserver" in window)) {
@@ -297,9 +280,6 @@ function observeReveal() {
   for (var j = 0; j < els.length; j++) obs.observe(els[j]);
 }
 
-
-
-/* ---- SMOOTH SCROLL ---- */
 var sLinks = document.querySelectorAll('a[href^="#"]');
 for (var si = 0; si < sLinks.length; si++) {
   sLinks[si].addEventListener("click", function(e) {
@@ -364,7 +344,6 @@ document.getElementById("checkoutModal").addEventListener("click", function(e) {
   if (e.target === this) closeCheckout();
 });
 
-/* ---- INIT ---- */
 renderReleases();
 observeReveal();
 
