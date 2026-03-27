@@ -75,25 +75,25 @@ nav.scrolled{padding:.7rem 2.5rem;background:rgba(8,8,12,.95)}
 .s3{bottom:22%;left:8%;animation-delay:1.4s;color:var(--cyan)}.s4{bottom:12%;right:15%;animation-delay:.3s;color:var(--yellow)}
 .s5{top:38%;left:3%;animation-delay:1s;color:var(--orange)}.s6{top:55%;right:3%;animation-delay:1.8s;color:var(--purple)}
 @keyframes spkl{0%,100%{opacity:0;transform:translateY(0) scale(.4) rotate(0)}20%{opacity:1}50%{opacity:1;transform:translateY(-25px) scale(1) rotate(180deg)}80%{opacity:.3}}
-.can-scene{perspective:900px;perspective-origin:50% 50%;width:240px;height:380px}
+.can-scene{perspective:800px;perspective-origin:50% 45%;width:240px;height:380px;overflow:visible}
 .can-float{animation:canf 5s ease-in-out infinite}
 @keyframes canf{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
 .can-3d{width:100%;height:100%;transform-style:preserve-3d;position:relative}
 .can-cylinder{width:100%;height:100%;transform-style:preserve-3d;position:relative;animation:cspin 25s linear infinite}
 .can-cylinder:hover{animation-play-state:paused}
 @keyframes cspin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
-.can-panel{position:absolute;width:28px;height:320px;top:30px;left:50%;margin-left:-14px;backface-visibility:hidden;border-radius:2px;overflow:hidden}
+.can-panel{position:absolute;width:22px;height:320px;top:30px;left:50%;margin-left:-11px;backface-visibility:hidden;border-radius:1px;overflow:hidden}
 .can-panel .label-bg{width:100%;height:100%;background-size:cover;background-position:center}
 .can-panel .shine{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.25) 0%,transparent 20%,transparent 60%,rgba(255,255,255,.08) 75%,transparent 90%,rgba(0,0,0,.2) 100%)}
-.can-panel .edge{position:absolute;top:0;width:1px;height:100%;background:rgba(255,255,255,.06)}
+.can-panel .edge{position:absolute;top:0;width:1px;height:100%;background:rgba(255,255,255,.04)}
 .can-panel .edge-l{left:0}.can-panel .edge-r{right:0}
-.can-rim-top{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:200px;height:32px;background:linear-gradient(to bottom,#e8e8e8 0%,#d0d0d0 25%,#a8a8a8 55%,#888 100%);border-radius:50%;z-index:10;box-shadow:0 -2px 10px rgba(0,0,0,.4),inset 0 2px 4px rgba(255,255,255,.3)}
-.can-rim-top::after{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:160px;height:18px;background:linear-gradient(to bottom,#c0c0c0,#999);border-radius:50%;box-shadow:inset 0 2px 6px rgba(0,0,0,.3)}
+.can-rim-top{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:180px;height:28px;background:linear-gradient(to bottom,#e8e8e8 0%,#d0d0d0 25%,#a8a8a8 55%,#888 100%);border-radius:50%;z-index:10;box-shadow:0 -2px 10px rgba(0,0,0,.4),inset 0 2px 4px rgba(255,255,255,.3)}
+.can-rim-top::after{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:140px;height:16px;background:linear-gradient(to bottom,#c0c0c0,#999);border-radius:50%;box-shadow:inset 0 2px 6px rgba(0,0,0,.3)}
 .can-tab{position:absolute;top:2px;left:50%;transform:translateX(-50%);width:40px;height:20px;z-index:11}
 .can-tab::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:26px;height:12px;border:2.5px solid #777;border-radius:8px 8px 2px 2px;background:linear-gradient(to bottom,#ddd,#bbb)}
 .can-tab::after{content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);width:10px;height:5px;background:#666;border-radius:50%}
-.can-rim-bottom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:200px;height:24px;background:linear-gradient(to bottom,#999,#707070);border-radius:50%;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.5)}
-.can-shadow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:180px;height:30px;background:radial-gradient(ellipse,var(--neon) 0%,transparent 70%);filter:blur(25px);opacity:.25;z-index:-1}
+.can-rim-bottom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:180px;height:20px;background:linear-gradient(to bottom,#999,#707070);border-radius:50%;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.can-shadow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:160px;height:30px;background:radial-gradient(ellipse,var(--neon) 0%,transparent 70%);filter:blur(25px);opacity:.25;z-index:-1}
 
 /* SECTIONS */
 section{padding:5rem 4rem;max-width:1400px;margin:0 auto}
