@@ -30,7 +30,9 @@ const products = [
     stock: 0,
     soldOutAt: 0,
     status: 'upcoming',
-    desc: 'Tart lychee and dragon fruit sour with a floral lotus finish 'p',
+    desc: 'Tart lychee and dragon fruit sour with a floral lotus finish.',
+    accent: 'p',
+
     img: ''
   },
   {
