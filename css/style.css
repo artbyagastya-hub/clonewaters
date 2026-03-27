@@ -67,7 +67,7 @@ nav.scrolled{padding:.7rem 2.5rem;background:rgba(8,8,12,.95)}
 .stat-num{font-family:var(--ff-d);font-size:2rem;color:var(--neon);line-height:1;text-shadow:0 0 12px rgba(57,255,20,.3)}
 .stat-lbl{font-size:.68rem;color:var(--txt3);text-transform:uppercase;letter-spacing:.12em;margin-top:.2rem}
 
-/* 3D CAN */
+/* CAN MOCKUP */
 .hero-can-area{display:flex;justify-content:center;align-items:center;min-height:440px;position:relative;opacity:0;animation:fadeIn .8s ease .5s forwards}
 @keyframes fadeIn{to{opacity:1}}
 .sparkle{position:absolute;font-size:.85rem;opacity:0;animation:spkl 3.5s ease-in-out infinite;pointer-events:none;z-index:5}
@@ -75,25 +75,25 @@ nav.scrolled{padding:.7rem 2.5rem;background:rgba(8,8,12,.95)}
 .s3{bottom:22%;left:8%;animation-delay:1.4s;color:var(--cyan)}.s4{bottom:12%;right:15%;animation-delay:.3s;color:var(--yellow)}
 .s5{top:38%;left:3%;animation-delay:1s;color:var(--orange)}.s6{top:55%;right:3%;animation-delay:1.8s;color:var(--purple)}
 @keyframes spkl{0%,100%{opacity:0;transform:translateY(0) scale(.4) rotate(0)}20%{opacity:1}50%{opacity:1;transform:translateY(-25px) scale(1) rotate(180deg)}80%{opacity:.3}}
-.can-scene{perspective:800px;perspective-origin:50% 45%;width:240px;height:380px;overflow:visible}
-.can-float{animation:canf 5s ease-in-out infinite}
-@keyframes canf{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
-.can-3d{width:100%;height:100%;transform-style:preserve-3d;position:relative}
-.can-cylinder{width:100%;height:100%;transform-style:preserve-3d;position:relative;animation:cspin 25s linear infinite}
-.can-cylinder:hover{animation-play-state:paused}
-@keyframes cspin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
-.can-panel{position:absolute;width:22px;height:320px;top:30px;left:50%;margin-left:-11px;backface-visibility:hidden;border-radius:1px;overflow:hidden}
-.can-panel .label-bg{width:100%;height:100%;background-size:cover;background-position:center}
-.can-panel .shine{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.25) 0%,transparent 20%,transparent 60%,rgba(255,255,255,.08) 75%,transparent 90%,rgba(0,0,0,.2) 100%)}
-.can-panel .edge{position:absolute;top:0;width:1px;height:100%;background:rgba(255,255,255,.04)}
-.can-panel .edge-l{left:0}.can-panel .edge-r{right:0}
-.can-rim-top{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:180px;height:28px;background:linear-gradient(to bottom,#e8e8e8 0%,#d0d0d0 25%,#a8a8a8 55%,#888 100%);border-radius:50%;z-index:10;box-shadow:0 -2px 10px rgba(0,0,0,.4),inset 0 2px 4px rgba(255,255,255,.3)}
-.can-rim-top::after{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:140px;height:16px;background:linear-gradient(to bottom,#c0c0c0,#999);border-radius:50%;box-shadow:inset 0 2px 6px rgba(0,0,0,.3)}
-.can-tab{position:absolute;top:2px;left:50%;transform:translateX(-50%);width:40px;height:20px;z-index:11}
-.can-tab::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:26px;height:12px;border:2.5px solid #777;border-radius:8px 8px 2px 2px;background:linear-gradient(to bottom,#ddd,#bbb)}
-.can-tab::after{content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);width:10px;height:5px;background:#666;border-radius:50%}
-.can-rim-bottom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:180px;height:20px;background:linear-gradient(to bottom,#999,#707070);border-radius:50%;z-index:10;box-shadow:0 4px 12px rgba(0,0,0,.5)}
-.can-shadow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:160px;height:30px;background:radial-gradient(ellipse,var(--neon) 0%,transparent 70%);filter:blur(25px);opacity:.25;z-index:-1}
+
+.can-mockup{position:relative;display:flex;flex-direction:column;align-items:center;animation:canf 5s ease-in-out infinite}
+@keyframes canf{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+
+.can-tab{width:30px;height:12px;background:linear-gradient(to bottom,#d0d0d0,#aaa);border-radius:4px 4px 0 0;position:relative;z-index:3;margin-bottom:-2px}
+.can-tab::after{content:'';position:absolute;top:3px;left:50%;transform:translateX(-50%);width:16px;height:6px;border:2px solid #888;border-radius:6px 6px 1px 1px}
+
+.can-rim-top{width:160px;height:14px;background:linear-gradient(to bottom,#e8e8e8 0%,#c0c0c0 40%,#999 100%);border-radius:50%;position:relative;z-index:2;box-shadow:0 -1px 4px rgba(0,0,0,.3),inset 0 1px 3px rgba(255,255,255,.4);margin-bottom:-4px}
+
+.can-body{width:150px;height:280px;border-radius:8px 8px 12px 12px;overflow:hidden;position:relative;box-shadow:8px 0 20px rgba(0,0,0,.3),-8px 0 20px rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.4)}
+
+.can-label{width:100%;height:100%;background-image:url("img/teddy-hopper-front.png");background-size:cover;background-position:center}
+
+.can-shine{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(105deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.08) 15%,transparent 35%,transparent 65%,rgba(0,0,0,.15) 85%,rgba(0,0,0,.25) 100%);pointer-events:none}
+
+.can-rim-bottom{width:155px;height:10px;background:linear-gradient(to bottom,#999,#666);border-radius:50%;margin-top:-4px;box-shadow:0 3px 8px rgba(0,0,0,.4);position:relative;z-index:2}
+
+.can-shadow{width:140px;height:20px;background:radial-gradient(ellipse,rgba(57,255,20,.2) 0%,transparent 70%);filter:blur(12px);margin-top:8px}
+
 
 /* SECTIONS */
 section{padding:5rem 4rem;max-width:1400px;margin:0 auto}
