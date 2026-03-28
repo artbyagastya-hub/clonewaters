@@ -118,6 +118,11 @@ var products = [
     var texLoader = new THREE.TextureLoader();
     var labelTex = texLoader.load(LABEL);
     labelTex.encoding = THREE.sRGBEncoding;
+    
+    // Maximize texture crispness across the curve of the can
+    labelTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    labelTex.magFilter = THREE.LinearFilter;
+    labelTex.minFilter = THREE.LinearMipmapLinearFilter;
 
     var can = new THREE.Group();
     scene.add(can);
