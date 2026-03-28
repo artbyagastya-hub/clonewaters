@@ -134,11 +134,10 @@ var products = [
     var colorArray = new Float32Array(pCount * 3);
     var color = new THREE.Color();
     for (let i = 0; i < pCount; i++) {
-        // Spread particles widely around the camera view
-      posArray[i*3] = (Math.random() - 0.5) * 20;
-      posArray[i*3+1] = (Math.random() - 0.5) * 20;
-      // Push the particles rigidly along the Z axis (background layer only)
-      posArray[i*3+2] = -5 - Math.random() * 15; 
+      // Spread particles in a massive cube surrounding the nebula's core
+      posArray[i*3] = (Math.random() - 0.5) * 40;
+      posArray[i*3+1] = (Math.random() - 0.5) * 40;
+      posArray[i*3+2] = (Math.random() - 0.5) * 40; 
       
       color.setHSL(Math.random(), 1.0, 0.6);
       colorArray[i*3] = color.r;
@@ -155,6 +154,8 @@ var products = [
       blending: THREE.AdditiveBlending
     });
     var nebula = new THREE.Points(pGeo, pMat);
+    // Push the entire galaxy's core deep behind the 3D can
+    nebula.position.z = -15;
     scene.add(nebula);
 
     var speed = 0;
@@ -263,8 +264,17 @@ var products = [
     animate();
 
     function onWindowResize() {
+      // Briefly remove the fixed-pixel canvas from the DOM flow so the container can naturally shrink
+      // This solves the horizontal scrolling/overflow lock bug on mobile Safari when flipping from Landscape -> Portrait
+      if (renderer && renderer.domElement) {
+        renderer.domElement.style.display = 'none';
+      }
       w = container.clientWidth;
       h = container.clientHeight;
+      if (renderer && renderer.domElement) {
+        renderer.domElement.style.display = 'block';
+      }
+      
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
@@ -274,7 +284,9 @@ var products = [
     
     // Aggressive DOM recalculation targeting mobile portrait/landscape layout switching bugs
     window.addEventListener("orientationchange", function() {
-      setTimeout(onWindowResize, 300);
+      // Fire twice to guarantee catching Android/iOS reflow quirks at different browser payload timings
+      setTimeout(onWindowResize, 100);
+      setTimeout(onWindowResize, 400);
     });
   }
 
