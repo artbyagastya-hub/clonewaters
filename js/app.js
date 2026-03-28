@@ -714,4 +714,39 @@ var products = [
   renderReleases();
   observeReveal();
 
+  var bear = document.getElementById("wanderingBear");
+  if (bear) {
+    var bx = Math.random() * window.innerWidth;
+    var by = Math.random() * window.innerHeight;
+    var vx = (Math.random() > 0.5 ? 1 : -1) * 1.5;
+    var vy = (Math.random() > 0.5 ? 1 : -1) * 1.5;
+    var bearSize = 40; // Approx font size bounds
+
+    function animateBear() {
+      bx = bx + vx;
+      by = by + vy;
+
+      if (bx <= 0 || bx >= window.innerWidth - bearSize) {
+        vx = vx * -1;
+        // Keep it strictly inside bounds in case it breaches during resize
+        if (bx <= 0) bx = 0;
+        if (bx >= window.innerWidth - bearSize) bx = window.innerWidth - bearSize;
+      }
+      if (by <= 0 || by >= window.innerHeight - bearSize) {
+        vy = vy * -1;
+        if (by <= 0) by = 0;
+        if (by >= window.innerHeight - bearSize) by = window.innerHeight - bearSize;
+      }
+
+      // Emojis typically orient to the Left. Velocity > 0 means moving Right -> scale(-1) flips it rightwards
+      var scaleX = vx > 0 ? -1 : 1;
+      
+      // Hardware-accelerated movement via transform translation
+      bear.style.transform = "translate(" + bx + "px, " + by + "px) scaleX(" + scaleX + ")";
+
+      requestAnimationFrame(animateBear);
+    }
+    animateBear();
+  }
+
 })();
