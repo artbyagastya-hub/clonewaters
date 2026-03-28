@@ -127,6 +127,36 @@ var products = [
     var can = new THREE.Group();
     scene.add(can);
 
+    // Psychedelic Nebula
+    var pGeo = new THREE.BufferGeometry();
+    var pCount = 3000;
+    var posArray = new Float32Array(pCount * 3);
+    var colorArray = new Float32Array(pCount * 3);
+    var color = new THREE.Color();
+    for (let i = 0; i < pCount; i++) {
+        // Spread particles widely around the camera view
+      posArray[i*3] = (Math.random() - 0.5) * 20;
+      posArray[i*3+1] = (Math.random() - 0.5) * 20;
+      // Push the particles rigidly along the Z axis (background layer only)
+      posArray[i*3+2] = -5 - Math.random() * 15; 
+      
+      color.setHSL(Math.random(), 1.0, 0.6);
+      colorArray[i*3] = color.r;
+      colorArray[i*3+1] = color.g;
+      colorArray[i*3+2] = color.b;
+    }
+    pGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    pGeo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+    var pMat = new THREE.PointsMaterial({
+      size: 0.08,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.8,
+      blending: THREE.AdditiveBlending
+    });
+    var nebula = new THREE.Points(pGeo, pMat);
+    scene.add(nebula);
+
     var speed = 0;
     var target = 0.01;
     var ft = 0;
@@ -223,16 +253,28 @@ var products = [
       can.position.y = 0.1 + Math.sin(ft) * 0.08;
       can.rotation.x = Math.sin(ft * 0.7) * 0.03;
       can.rotation.z = Math.cos(ft * 0.5) * 0.02;
+
+      // Animate the background galaxy very slowly
+      nebula.rotation.z += 0.0005;
+      nebula.rotation.y += 0.001;
+
       renderer.render(scene, camera);
     }
     animate();
 
-    window.addEventListener("resize", function() {
+    function onWindowResize() {
       w = container.clientWidth;
       h = container.clientHeight;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
+    }
+    
+    window.addEventListener("resize", onWindowResize);
+    
+    // Aggressive DOM recalculation targeting mobile portrait/landscape layout switching bugs
+    window.addEventListener("orientationchange", function() {
+      setTimeout(onWindowResize, 300);
     });
   }
 
@@ -716,37 +758,31 @@ var products = [
 
   var bear = document.getElementById("wanderingBear");
   if (bear) {
-    var bx = Math.random() * window.innerWidth;
-    var by = Math.random() * window.innerHeight;
-    var vx = (Math.random() > 0.5 ? 1 : -1) * 1.5;
-    var vy = (Math.random() > 0.5 ? 1 : -1) * 1.5;
-    var bearSize = 40; // Approx font size bounds
-
-    function animateBear() {
-      bx = bx + vx;
-      by = by + vy;
-
-      if (bx <= 0 || bx >= window.innerWidth - bearSize) {
-        vx = vx * -1;
-        // Keep it strictly inside bounds in case it breaches during resize
-        if (bx <= 0) bx = 0;
-        if (bx >= window.innerWidth - bearSize) bx = window.innerWidth - bearSize;
-      }
-      if (by <= 0 || by >= window.innerHeight - bearSize) {
-        vy = vy * -1;
-        if (by <= 0) by = 0;
-        if (by >= window.innerHeight - bearSize) by = window.innerHeight - bearSize;
-      }
-
-      // Emojis typically orient to the Left. Velocity > 0 means moving Right -> scale(-1) flips it rightwards
-      var scaleX = vx > 0 ? -1 : 1;
+    var bearSize = 40; 
+    
+    function teleportBear() {
+      // Fade out
+      bear.style.opacity = '0';
       
-      // Hardware-accelerated movement via transform translation
-      bear.style.transform = "translate(" + bx + "px, " + by + "px) scaleX(" + scaleX + ")";
-
-      requestAnimationFrame(animateBear);
+      // Wait for the CSS transition to complete before mutating coordinates
+      setTimeout(function() {
+        var bx = Math.max(0, Math.min(Math.random() * window.innerWidth, window.innerWidth - bearSize));
+        var by = Math.max(0, Math.min(Math.random() * window.innerHeight, window.innerHeight - bearSize));
+        var scaleX = Math.random() > 0.5 ? 1 : -1;
+        
+        // Move instantly while invisible
+        bear.style.transform = "translate(" + bx + "px, " + by + "px) scaleX(" + scaleX + ")";
+        
+        // Fade in
+        bear.style.opacity = '1';
+        
+        // Linger visibly for a random duration (3-6s) before firing the next teleport loop
+        setTimeout(teleportBear, 3000 + Math.random() * 3000);
+      }, 1500); 
     }
-    animateBear();
+    
+    // Kick off the loop
+    teleportBear();
   }
 
 })();
