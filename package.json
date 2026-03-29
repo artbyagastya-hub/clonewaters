@@ -1,0 +1,27 @@
+{
+  "name": "clonewaters",
+  "version": "1.0.0",
+  "description": "Clone Waters is a Direct-to-Consumer (DTC) static storefront and brand site for our psychedelic craft beer line based in Vietnam. The project features a fully responsive, visually rich design with immersive 3D WebGL can mockups that rotate and sparkle on a dark nebula canvas.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artbyagastya-hub/clonewaters.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/artbyagastya-hub/clonewaters/issues"
+  },
+  "homepage": "https://github.com/artbyagastya-hub/clonewaters#readme",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "axios": "^1.14.0",
+    "cheerio": "^1.2.0",
+    "dotenv": "^17.3.1"
+  }
+}
